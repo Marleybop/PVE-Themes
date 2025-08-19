@@ -1,7 +1,6 @@
 /* ==========================================================================
-   Proxmox VE – CYBERPUNK (refined for your HTML structure)
-   Works with PVE 8.x / ExtJS 6 classes seen in your page:
-   - .x-toolbar, .x-panel-header, .x-treelist, .x-btn, .x-grid*, .x-form-*
+   Proxmox VE – CYBERPUNK THEME
+   Inspired by SolarPVE. Works with PVE 8.x ExtJS classes.
    ========================================================================== */
 
 :root {
@@ -11,8 +10,10 @@
   --glo-strong: 0 0 10px var(--accent), 0 0 28px var(--accent);
 }
 
-/* smooth fonts */
-html, body, .x-body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html, body, .x-body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* ========================================================================== */
 /* LIGHT – “Neon Day”                                                         */
@@ -35,7 +36,7 @@ body:not(.proxmox-theme-dark) {
   color: var(--fg);
 }
 
-/* base surfaces */
+/* base */
 body:not(.proxmox-theme-dark) .x-body,
 body:not(.proxmox-theme-dark) .x-container,
 body:not(.proxmox-theme-dark) .x-panel,
@@ -47,13 +48,13 @@ body:not(.proxmox-theme-dark) .x-message-box {
   box-shadow: 0 0 0 1px var(--border) inset;
 }
 
-/* top header toolbar (.x-toolbar in your header area) */ /* :contentReference[oaicite:1]{index=1} */
+/* toolbar header */
 body:not(.proxmox-theme-dark) .x-toolbar {
   background: linear-gradient(180deg, #ffffff, var(--bg2)) !important;
   border-color: var(--border) !important;
 }
 
-/* treelist sidebar */ /* .x-treelist, .x-treelist-item, .x-treelist-item-selected */
+/* treelist */
 body:not(.proxmox-theme-dark) .x-treelist { background: var(--bg2); }
 body:not(.proxmox-theme-dark) .x-treelist-row { border-radius: 8px; }
 body:not(.proxmox-theme-dark) .x-treelist-row:hover { background: rgba(18,230,255,.12); }
@@ -62,14 +63,14 @@ body:not(.proxmox-theme-dark) .x-treelist-item-selected .x-treelist-row {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-/* panel headers (e.g. “forgejo” header block) */ /* .x-panel-header */ /* :contentReference[oaicite:2]{index=2} */
+/* panel headers */
 body:not(.proxmox-theme-dark) .x-panel-header {
   background: linear-gradient(180deg, var(--bg2), #fff);
   border-bottom: 2px solid var(--accent-2);
   color: var(--fg) !important;
 }
 
-/* buttons (Create VM/CT, Start, Console, More, Help) */ /* .x-btn* */ /* :contentReference[oaicite:3]{index=3} */
+/* buttons */
 body:not(.proxmox-theme-dark) .x-btn {
   background: linear-gradient(180deg, var(--bg2), var(--elev));
   border-color: var(--border);
@@ -91,7 +92,7 @@ body:not(.proxmox-theme-dark) .proxmox-action-primary {
   box-shadow: 0 0 0 2px rgba(255,255,255,.65) inset, var(--glo);
 }
 
-/* forms (search box, combo in the summary toolbar) */ /* .x-form-* */ /* :contentReference[oaicite:4]{index=4} */
+/* forms */
 body:not(.proxmox-theme-dark) .x-form-text,
 body:not(.proxmox-theme-dark) .x-form-field,
 body:not(.proxmox-theme-dark) .x-form-trigger-wrap {
@@ -107,7 +108,7 @@ body:not(.proxmox-theme-dark) .x-form-trigger-wrap:focus-within {
   box-shadow: 0 0 0 1px var(--accent) inset, var(--ring);
 }
 
-/* grids & logs (Task History table area) */ /* .x-grid*, .x-grid3* */ /* :contentReference[oaicite:5]{index=5} */
+/* grids */
 body:not(.proxmox-theme-dark) .x-grid, 
 body:not(.proxmox-theme-dark) .x-grid3,
 body:not(.proxmox-theme-dark) .x-grid-header-ct {
@@ -122,14 +123,14 @@ body:not(.proxmox-theme-dark) .x-grid3-row-selected {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-/* progress bars in widgets */ /* .x-progress-bar */ /* :contentReference[oaicite:6]{index=6} */
+/* progress */
 body:not(.proxmox-theme-dark) .x-progress { background: var(--elev); border-color: var(--border); border-radius: var(--r); }
 body:not(.proxmox-theme-dark) .x-progress-bar {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   box-shadow: var(--glo-strong);
 }
 
-/* tags (the small colored rectangles, e.g. “community-script”, “git”) */ /* proxmox-tag-* */ /* :contentReference[oaicite:7]{index=7} */
+/* tags */
 body:not(.proxmox-theme-dark) .proxmox-tag-light,
 body:not(.proxmox-theme-dark) .proxmox-tag-dark {
   border-radius: 999px;
@@ -178,13 +179,13 @@ body.proxmox-theme-dark .x-message-box {
   backdrop-filter: blur(2px);
 }
 
-/* header toolbar (top bar with logo/search/buttons) */ /* .x-toolbar */ /* :contentReference[oaicite:8]{index=8} */
+/* toolbar header */
 body.proxmox-theme-dark .x-toolbar {
   background: linear-gradient(180deg, #1a2350, #0f1424) !important;
   border-bottom: 1px solid var(--border) !important;
 }
 
-/* panel headers (e.g. “forgejo” card title area) */ /* .x-panel-header */
+/* panel headers */
 body.proxmox-theme-dark .x-panel-header {
   background: linear-gradient(180deg, #161f3b, #0f1424);
   border-bottom: 2px solid var(--accent-2);
@@ -192,7 +193,7 @@ body.proxmox-theme-dark .x-panel-header {
   text-shadow: 0 0 10px rgba(18,230,255,.25);
 }
 
-/* treelist sidebar */
+/* treelist */
 body.proxmox-theme-dark .x-treelist { background: transparent; }
 body.proxmox-theme-dark .x-treelist-row { border-radius: 8px; }
 body.proxmox-theme-dark .x-treelist-row:hover { background: rgba(18,230,255,.10); }
@@ -201,7 +202,7 @@ body.proxmox-theme-dark .x-treelist-item-selected .x-treelist-row {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-/* buttons (Start, Console, More, Help, Create VM/CT) */
+/* buttons */
 body.proxmox-theme-dark .x-btn {
   background: linear-gradient(180deg, #192347, #0f1424);
   border-color: var(--border);
@@ -230,7 +231,7 @@ body.proxmox-theme-dark .proxmox-action-danger {
   box-shadow: 0 0 0 1px var(--bad) inset, 0 0 12px rgba(255,56,100,.35);
 }
 
-/* forms (search input, RRD combobox) */ /* .x-form-* */
+/* forms */
 body.proxmox-theme-dark .x-form-text,
 body.proxmox-theme-dark .x-form-field,
 body.proxmox-theme-dark .x-form-trigger-wrap {
@@ -246,7 +247,7 @@ body.proxmox-theme-dark .x-form-trigger-wrap:focus-within {
   box-shadow: 0 0 0 1px var(--accent-2) inset, var(--ring);
 }
 
-/* grids & logs (Task History) */
+/* grids */
 body.proxmox-theme-dark .x-grid, 
 body.proxmox-theme-dark .x-grid3,
 body.proxmox-theme-dark .x-grid-header-ct {
@@ -261,18 +262,45 @@ body.proxmox-theme-dark .x-grid3-row-selected {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-/* info rows (left/right aligned items in the “Status/Node/…” list) */
-.left-aligned { opacity: .95; }
-.right-aligned { color: var(--muted); }
+/* text contrast fixes */
+body.proxmox-theme-dark .x-panel,
+body.proxmox-theme-dark .x-window,
+body.proxmox-theme-dark .x-message-box,
+body.proxmox-theme-dark .x-toolbar,
+body.proxmox-theme-dark .x-grid,
+body.proxmox-theme-dark .x-grid3 {
+  color: var(--fg) !important;
+}
+body.proxmox-theme-dark .x-grid-cell-inner,
+body.proxmox-theme-dark .x-grid3-cell-inner { color: var(--fg) !important; opacity:.95; }
+body.proxmox-theme-dark .x-grid-header-ct,
+body.proxmox-theme-dark .x-column-header,
+body.proxmox-theme-dark .x-grid3-hd-row { color: var(--fg) !important; }
+body.proxmox-theme-dark .x-treelist-item-text,
+body.proxmox-theme-dark .x-tree-node-text { color: var(--fg) !important; }
+body.proxmox-theme-dark .left-aligned { color: var(--fg) !important; opacity:.95; }
+body.proxmox-theme-dark .right-aligned { color: var(--muted) !important; opacity:.95; }
+body.proxmox-theme-dark .x-toolbar .x-btn .x-btn-inner,
+body.proxmox-theme-dark .x-toolbar .x-btn .x-btn-icon-el { color: var(--fg) !important; filter: brightness(1.15); }
+body.proxmox-theme-dark .x-toolbar .x-btn.x-btn-over { box-shadow: 0 0 0 1px var(--accent-2) inset, var(--glo); }
+body.proxmox-theme-dark .x-toolbar .x-btn.x-btn-disabled { opacity:.55; }
+body.proxmox-theme-dark .x-tab-inner { color: var(--fg) !important; }
+body.proxmox-theme-dark .x-tab-active .x-tab-inner { text-shadow:0 0 8px rgba(18,230,255,.35); }
+body.proxmox-theme-dark .x-toolbar .x-form-text,
+body.proxmox-theme-dark .x-toolbar .x-form-field { color: var(--fg) !important; }
+body.proxmox-theme-dark .x-grid-cell-inner-treecolumn,
+body.proxmox-theme-dark .x-grid-row .x-grid-cell-inner { color: var(--fg) !important; }
+body.proxmox-theme-dark .proxmox-tag-light,
+body.proxmox-theme-dark .proxmox-tag-dark { color: var(--fg) !important; }
 
-/* progress bars */
+/* progress */
 body.proxmox-theme-dark .x-progress { background: #0d1226; border-color: var(--border); border-radius: var(--r); }
 body.proxmox-theme-dark .x-progress-bar {
   background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
   box-shadow: var(--glo-strong);
 }
 
-/* tags (e.g. community-script, git) */
+/* tags */
 body.proxmox-theme-dark .proxmox-tag-light,
 body.proxmox-theme-dark .proxmox-tag-dark {
   border-radius: 999px;
@@ -281,7 +309,7 @@ body.proxmox-theme-dark .proxmox-tag-dark {
   color: var(--fg);
 }
 
-/* message boxes / tips */
+/* messages */
 body.proxmox-theme-dark .x-msg-box,
 body.proxmox-theme-dark .x-tip-default {
   background: #0f1424;
@@ -305,7 +333,7 @@ body.proxmox-theme-dark ::-webkit-scrollbar { width: 10px; height: 10px; }
 body.proxmox-theme-dark ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-radius: 10px; }
 body.proxmox-theme-dark ::-webkit-scrollbar-track { background: #0e1328; }
 
-/* misc polish */
+/* misc */
 .x-mask { backdrop-filter: blur(2px); background: rgba(10,12,20,.35); }
 .x-boundlist { border-radius: var(--r); overflow: hidden; }
 .x-splitter { background: var(--bg2); }
