@@ -18,6 +18,18 @@ AVAILABLE_THEMES=("modern-dark" "ocean-blue" "forest-green" "minimal-light")
 echo "🎨 Proxmox VE Theme Manager Installer"
 echo "====================================="
 
+# Check if stdin is available for user input
+if ! [ -t 0 ]; then
+    echo "⚠️  Interactive input not available when piped from curl"
+    echo ""
+    echo "Please run one of these instead:"
+    echo "  curl -sSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh -o install.sh && chmod +x install.sh && ./install.sh"
+    echo "  OR"
+    echo "  bash <(curl -sSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh)"
+    echo ""
+    exit 1
+fi
+
 check_root() {
     if [[ $EUID -ne 0 ]]; then
         echo "❌ Error: This script must be run as root"
