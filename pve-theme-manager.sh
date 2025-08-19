@@ -54,6 +54,8 @@ show_dialog() {
 
 # Check requirements
 check_requirements() {
+    local warnings=()
+    
     # Check if running as root
     if [[ $EUID -ne 0 ]]; then
         show_dialog msgbox "Error" "This script must be run as root.\n\nPlease run with: sudo $0"
@@ -66,13 +68,37 @@ check_requirements() {
         exit 1
     fi
     
+    # Check for index.html.tpl - warn but don't exit
     if [[ ! -f "$PVE_INDEX_TEMPLATE" ]]; then
-        show_dialog msgbox "Error" "Required file not found:\n$PVE_INDEX_TEMPLATE\n\nProxmox installation may be incomplete."
-        exit 1
+        warnings+=("⚠️  Missing: $PVE_INDEX_TEMPLATE")
+        warnings+=("   This may indicate a corrupted Proxmox installation")
+        warnings+=("   or the file was accidentally deleted.")
+        warnings+=("")
+        warnings+=("✅ You can still use the restore function if you have backups.")
+    fi
+    
+    # Check if images directory exists
+    if [[ ! -d "$PVE_IMAGES_PATH" ]]; then
+        warnings+=("⚠️  Missing: $PVE_IMAGES_PATH")
+        warnings+=("   Proxmox images directory not found.")
     fi
     
     # Create backup directory if it doesn't exist
     mkdir -p "$BACKUP_DIR"
+    
+    # Show warnings if any
+    if [[ ${#warnings[@]} -gt 0 ]]; then
+        local warning_text=""
+        for warning in "${warnings[@]}"; do
+            warning_text+="$warning\n"
+        done
+        warning_text+="\n🤔 Continue anyway?"
+        
+        if ! show_dialog yesno "⚠️  System Warnings" "$warning_text" 18 80; then
+            show_dialog msgbox "Cancelled" "Operation cancelled by user.\n\nFix the issues above and try again."
+            exit 1
+        fi
+    fi
 }
 
 # Get current status
@@ -103,7 +129,7 @@ get_status() {
     fi
     
     # Check if index.html.tpl has been modified (rough check)
-    local template_modified="Unknown"
+    local template_modified="❌ File Missing"
     if [[ -f "$PVE_INDEX_TEMPLATE" ]]; then
         if grep -q "pve-theme\|solarized\|theme-" "$PVE_INDEX_TEMPLATE" 2>/dev/null; then
             template_modified="Yes (likely modified for themes)"
@@ -179,8 +205,8 @@ create_backup() {
                 success=false
             fi
         else
-            echo "⚠️  index.html.tpl not found at $PVE_INDEX_TEMPLATE" >> "$backup_log"
-            success=false
+            echo "⚠️  index.html.tpl not found at $PVE_INDEX_TEMPLATE - skipping" >> "$backup_log"
+            echo "   File may have been deleted or Proxmox installation is incomplete" >> "$backup_log"
         fi
         
         # Backup any existing theme CSS files we might have added
