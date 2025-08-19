@@ -1,42 +1,31 @@
 /* ===========================================================
-   PROXMOX THEME — "FALLOUT / PIP-BOY"
-   Variable-driven template. Native tag colors preserved.
+   PROXMOX THEME — "FALLOUT / PIP-BOY" with Radio Glow Fix
    =========================================================== */
 
 :root{
-  /* Core Backgrounds */
-  --bg:    #0a0f0a;   /* deep terminal black/green */
-  --bg2:   #0e1510;   /* panels */
-  --panel: #101a12;   /* cards/windows */
-  --border:#1e2a1e;   /* subtle olive border */
+  --bg:    #0a0f0a;
+  --bg2:   #0e1510;
+  --panel: #101a12;
+  --border:#1e2a1e;
 
-  /* Text */
-  --fg:    #e3f6e8;   /* light minty text */
-  --muted: #8fa68f;   /* dim terminal text */
+  --fg:    #e3f6e8;
+  --muted: #8fa68f;
 
-  /* Accents */
-  --accent:   #00ff66;   /* Pip-Boy green */
-  --accent-2: #9affc9;   /* soft green */
-  --accent-3: #ffe082;   /* Vault-Tec amber */
+  --accent:   #00ff66;
+  --accent-2: #9affc9;
+  --accent-3: #ffe082;
 
-  /* Effects */
-  --accent-soft: rgba(0,255,102,.30); /* green glow */
+  --accent-soft: rgba(0,255,102,.30);
   --r: 10px;
 
-  /* Pre-mixed translucents */
   --accent-ghost-22: rgba(0,255,102,.22);
   --accent-ghost-12: rgba(0,255,102,.12);
   --accent-ghost-10: rgba(0,255,102,.10);
 
-  /* Glow / Ring */
   --ring: 0 0 0 2px var(--accent), 0 0 16px var(--accent-soft);
   --glo:  0 0 8px var(--accent-soft), 0 0 20px var(--accent-soft);
   --glo-strong: 0 0 10px var(--accent), 0 0 28px var(--accent);
 }
-
-/* ===========================================================
-   THEME FRAMEWORK (variable-driven)
-   =========================================================== */
 
 html,body,.x-body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
@@ -57,141 +46,87 @@ body{
 }
 
 /* Toolbar */
-.x-toolbar{
-  background:linear-gradient(180deg, var(--panel), var(--bg2)) !important;
-  border-bottom:1px solid var(--border) !important;
-  color:var(--fg) !important;
-}
-.x-toolbar .x-btn .x-btn-inner,
-.x-toolbar .x-btn .x-btn-icon-el{color:var(--fg) !important;filter:brightness(1.1)}
-.x-toolbar .x-btn.x-btn-over{
-  filter:brightness(1.08) saturate(1.25);
-  box-shadow:0 0 0 1px var(--accent-2) inset, var(--glo);
-}
-.x-toolbar .x-btn.x-btn-pressed,
-.x-toolbar .x-btn.x-btn-menu-active,
-.x-toolbar .x-btn.x-btn-focus,
-.x-toolbar .x-btn.x-btn-toggle-pressed{
+.x-toolbar{background:linear-gradient(180deg, var(--panel), var(--bg2)) !important;border-bottom:1px solid var(--border) !important;color:var(--fg) !important}
+.x-toolbar .x-btn .x-btn-inner,.x-toolbar .x-btn .x-btn-icon-el{color:var(--fg) !important;filter:brightness(1.1)}
+.x-toolbar .x-btn.x-btn-over{filter:brightness(1.08) saturate(1.25);box-shadow:0 0 0 1px var(--accent-2) inset, var(--glo)}
+.x-toolbar .x-btn.x-btn-pressed,.x-toolbar .x-btn.x-btn-menu-active,.x-toolbar .x-btn.x-btn-focus,.x-toolbar .x-btn.x-btn-toggle-pressed{
   background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;
   border-color:var(--accent) !important;
   box-shadow:0 0 0 1px var(--accent) inset, var(--glo-strong) !important;
 }
 
-/* Sidebar Tree */
+/* Sidebar */
 .x-treelist{background:transparent !important}
 .x-treelist-item-text,.x-tree-node-text,.x-grid-cell-inner-treecolumn{color:var(--fg) !important}
 .x-treelist-row{border-radius:8px}
 .x-treelist-row:hover{background:var(--accent-ghost-10) !important}
-.x-treelist-item-selected .x-treelist-row{
-  background:var(--accent-ghost-12) !important;
-  box-shadow:inset 0 0 0 1px var(--accent);
-}
+.x-treelist-item-selected .x-treelist-row{background:var(--accent-ghost-12) !important;box-shadow:inset 0 0 0 1px var(--accent)}
 
 /* Panels */
-.x-panel-header{
-  background:linear-gradient(180deg,var(--panel),var(--bg2)) !important;
-  border-bottom:2px solid var(--accent-2);
-  color:var(--fg) !important;
-  text-shadow:0 0 10px rgba(154,255,201,.25);
-}
+.x-panel-header{background:linear-gradient(180deg,var(--panel),var(--bg2)) !important;border-bottom:2px solid var(--accent-2);color:var(--fg) !important;text-shadow:0 0 10px rgba(154,255,201,.25)}
 .x-panel-body{background:var(--bg2) !important;border-color:var(--border) !important;color:var(--fg) !important}
 
 /* Buttons */
-.x-btn{
-  background:linear-gradient(180deg,var(--panel),var(--bg2));
-  border-color:var(--border);
-  color:var(--fg);
-  border-radius:var(--r);
-  transition:transform .06s ease, box-shadow .15s ease, filter .15s ease;
-}
-.x-btn.x-btn-over{
-  filter:brightness(1.08) saturate(1.20);
-  box-shadow:0 0 0 1px var(--accent) inset, var(--glo);
-}
+.x-btn{background:linear-gradient(180deg,var(--panel),var(--bg2));border-color:var(--border);color:var(--fg);border-radius:var(--r);transition:transform .06s ease, box-shadow .15s ease, filter .15s ease}
+.x-btn.x-btn-over{filter:brightness(1.08) saturate(1.20);box-shadow:0 0 0 1px var(--accent) inset, var(--glo)}
 .x-btn.x-btn-pressed,.x-btn.x-btn-menu-active,.x-btn.x-btn-toggle-pressed{
-  background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;
-  border-color:var(--accent) !important;
-  box-shadow:0 0 0 1px var(--accent) inset, var(--glo) !important;
-}
-.x-btn.x-btn-primary,.proxmox-action-primary{
-  border-color:var(--accent);
-  color:#eafff2;
-  text-shadow:0 0 6px var(--accent-soft);
-  box-shadow:0 0 0 1px var(--accent) inset, var(--glo-strong);
-}
-.x-btn.x-btn-danger,.proxmox-action-danger{
-  border-color:#ff3864;
-  box-shadow:0 0 0 1px #ff3864 inset, 0 0 12px rgba(255,56,100,.35);
-}
+  background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;border-color:var(--accent) !important;box-shadow:0 0 0 1px var(--accent) inset, var(--glo) !important}
+.x-btn.x-btn-primary,.proxmox-action-primary{border-color:var(--accent);color:#eafff2;text-shadow:0 0 6px var(--accent-soft);box-shadow:0 0 0 1px var(--accent) inset, var(--glo-strong)}
+.x-btn.x-btn-danger,.proxmox-action-danger{border-color:#ff3864;box-shadow:0 0 0 1px #ff3864 inset, 0 0 12px rgba(255,56,100,.35)}
 
 /* Tabs */
 .x-tab-bar{background:var(--bg2) !important;border-color:var(--border) !important}
 .x-tab{background:transparent !important;border-color:var(--border) !important;border-radius:var(--r) var(--r) 0 0}
 .x-tab-inner{color:var(--fg) !important}
 .x-tab-over .x-tab-inner{color:var(--accent-2) !important}
-.x-tab-active{
-  background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;
-  border-color:var(--accent) !important;
-  box-shadow:0 -2px 0 0 var(--accent) inset, var(--glo) !important;
-}
+.x-tab-active{background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;border-color:var(--accent) !important;box-shadow:0 -2px 0 0 var(--accent) inset, var(--glo) !important}
 .x-tab-active .x-tab-inner{color:#eafff2 !important;text-shadow:0 0 8px var(--accent-soft)}
 
 /* Forms */
-.x-form-text,.x-form-field,.x-form-trigger-wrap{
-  background:#0d1510 !important;
-  color:var(--fg) !important;
-  border-color:var(--border) !important;
-  border-radius:calc(var(--r) - 2px);
-}
-.x-form-field:focus,.x-form-text:focus,.x-form-trigger-wrap:focus-within{
-  box-shadow:0 0 0 1px var(--accent-2) inset, var(--ring);
-}
+.x-form-text,.x-form-field,.x-form-trigger-wrap{background:#0d1510 !important;color:var(--fg) !important;border-color:var(--border) !important;border-radius:calc(var(--r) - 2px)}
+.x-form-field:focus,.x-form-text:focus,.x-form-trigger-wrap:focus-within{box-shadow:0 0 0 1px var(--accent-2) inset, var(--ring)}
 
-/* Radios & Checkboxes — label highlight only (keep native glyphs) */
-.x-form-cb-label{
-  color:var(--fg) !important;
-  opacity:.95;
-  padding:2px 6px;
-  border-radius:999px;
-  transition:background-color .15s ease, color .15s ease, box-shadow .15s ease;
-}
+/* Radios & Checkboxes — now with green glow on active */
+.x-form-cb-label{color:var(--fg) !important;opacity:.95;padding:2px 6px;border-radius:999px;transition:background-color .15s ease, color .15s ease, box-shadow .15s ease}
 .x-form-cb-wrap:hover .x-form-cb-label{background:rgba(255,255,255,.03)}
 .x-form-cb-wrap.x-form-cb-checked .x-form-cb-label{
   background:var(--accent-ghost-12);
   color:var(--fg) !important;
-  box-shadow:0 0 0 1px var(--accent) inset, var(--glo);
+  box-shadow:0 0 0 1px var(--accent) inset, var(--glo-strong);
+}
+.x-form-cb-wrap input[type="radio"]:checked + .x-form-cb-label::before,
+.x-form-cb-wrap input[type="checkbox"]:checked + .x-form-cb-label::before{
+  content:"";
+  position:absolute;
+  left:-20px; /* aligns with native bullet */
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;height:16px;
+  border-radius:50%;
+  box-shadow:0 0 8px 2px var(--accent-soft), inset 0 0 4px var(--accent);
+  pointer-events:none;
 }
 .x-form-cb-wrap input:focus + .x-form-cb-label,
 .x-form-cb-wrap input:focus-visible + .x-form-cb-label{box-shadow:var(--ring)}
 .x-form-cb-wrap.x-item-disabled .x-form-cb-label,
-.x-form-cb-wrap [disabled] + .x-form-cb-label{
-  color:var(--muted) !important;background:transparent;box-shadow:none;opacity:.6;
-}
+.x-form-cb-wrap [disabled] + .x-form-cb-label{color:var(--muted) !important;background:transparent;box-shadow:none;opacity:.6}
 
-/* Grids */
+/* Grid */
 .x-grid,.x-grid3,.x-grid-header-ct{background:var(--bg2);border-color:var(--border)}
 .x-grid-cell-inner,.x-grid3-cell-inner{color:var(--fg) !important;opacity:.95}
 .x-grid-header-ct,.x-column-header,.x-grid3-hd-row{color:var(--fg) !important}
 .x-grid-item-over .x-grid-cell,.x-grid3-row-over{background:var(--accent-ghost-10)}
-.x-grid-item-selected .x-grid-cell,.x-grid3-row-selected{
-  background:var(--accent-ghost-12) !important;
-  box-shadow:inset 0 0 0 1px var(--accent);
-}
+.x-grid-item-selected .x-grid-cell,.x-grid3-row-selected{background:var(--accent-ghost-12) !important;box-shadow:inset 0 0 0 1px var(--accent)}
 
-/* Summary widget rows */
-.left-aligned{color:var(--fg) !important;opacity:.95}
-.right-aligned{color:var(--muted) !important;opacity:.95}
-.x-component .fa,[class^="fl-"],[class*=" fl-"]{color:var(--accent-2) !important;opacity:.95}
-
-/* Progress bars */
+/* Progress */
 .x-progress{background:#0b130e;border-color:var(--border);border-radius:var(--r)}
 .x-progress-bar{background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:var(--glo-strong)}
 
-/* Messages & tips */
+/* Tips & Messages */
 .x-msg-box,.x-tip-default{background:#0e1712;border-color:var(--border);box-shadow:0 10px 30px rgba(0,0,0,.5), var(--glo)}
 .x-message-box .x-window-header,.x-message-box .x-window-text{color:var(--fg)}
 
-/* Links & focus */
+/* Links */
 a,.x-link-text{color:var(--accent-2)}
 a:hover{text-shadow:0 0 8px var(--accent-2)}
 *:focus-visible{outline:none !important;border-color:var(--accent-2) !important;box-shadow:var(--ring) !important}
@@ -205,5 +140,3 @@ a:hover{text-shadow:0 0 8px var(--accent-2)}
 .x-mask{backdrop-filter:blur(2px);background:rgba(8,14,10,.35)}
 .x-boundlist{border-radius:var(--r);overflow:hidden}
 .x-splitter{background:var(--bg2)}
-
-/* NOTE: Intentionally no rules for .proxmox-tag-* — native tag colors preserved */
