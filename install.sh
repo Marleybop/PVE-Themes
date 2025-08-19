@@ -18,17 +18,65 @@ AVAILABLE_THEMES=("modern-dark" "ocean-blue" "forest-green" "minimal-light")
 echo "🎨 Proxmox VE Theme Manager Installer"
 echo "====================================="
 
-# Check if stdin is available for user input
-if ! [ -t 0 ]; then
-    echo "⚠️  Interactive input not available when piped from curl"
-    echo ""
-    echo "Please run one of these instead:"
-    echo "  curl -sSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh -o install.sh && chmod +x install.sh && ./install.sh"
-    echo "  OR"
-    echo "  bash <(curl -sSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh)"
-    echo ""
-    exit 1
-fi
+# Support for non-interactive mode via environment variables
+AUTO_INSTALL=${AUTO_INSTALL:-false}
+THEME_CHOICE=${THEME_CHOICE:-1}  # Default to modern-dark
+ACTION=${ACTION:-install}        # install, backup, or menu
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --auto)
+            AUTO_INSTALL=true
+            shift
+            ;;
+        --theme)
+            THEME_CHOICE="$2"
+            shift 2
+            ;;
+        --backup-only)
+            ACTION="backup"
+            AUTO_INSTALL=true
+            shift
+            ;;
+        --help)
+            show_help
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+show_help() {
+    cat << EOF
+🎨 Proxmox VE Theme Manager Installer
+
+Usage:
+    # Interactive mode (default)
+    bash <(curl -fsSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh)
+    
+    # Auto-install with theme selection (seamless one-liner)
+    bash -c "\$(curl -fsSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh)" -- --auto --theme 2
+    
+    # Backup only (seamless)
+    bash -c "\$(curl -fsSL http://10.0.10.41:3000/Marleybop/pve-themes/raw/branch/main/install.sh)" -- --backup-only
+
+Options:
+    --auto              Run without interactive prompts
+    --theme <1-4>       Theme to install (1=modern-dark, 2=ocean-blue, 3=forest-green, 4=minimal-light)
+    --backup-only       Create backup only, no installation
+    --help              Show this help
+
+Available themes:
+    1. modern-dark      - Sleek dark theme with blue accents
+    2. ocean-blue       - Ocean-inspired adaptive theme
+    3. forest-green     - Nature-themed green palette
+    4. minimal-light    - Clean minimal design
+EOF
+}
 
 check_root() {
     if [[ $EUID -ne 0 ]]; then
@@ -95,6 +143,18 @@ install_theme_manager() {
 }
 
 select_theme() {
+    if [[ "$AUTO_INSTALL" == "true" ]]; then
+        if [[ "$THEME_CHOICE" =~ ^[1-4]$ ]] && [ "$THEME_CHOICE" -le "${#AVAILABLE_THEMES[@]}" ]; then
+            selected_theme="${AVAILABLE_THEMES[$((THEME_CHOICE-1))]}"
+            echo "🎨 Auto-selected theme: $selected_theme"
+            return 0
+        else
+            echo "❌ Invalid theme choice: $THEME_CHOICE. Using default: modern-dark"
+            selected_theme="modern-dark"
+            return 0
+        fi
+    fi
+    
     echo ""
     echo "📋 Available themes:"
     for i in "${!AVAILABLE_THEMES[@]}"; do
@@ -205,6 +265,17 @@ show_completion() {
 }
 
 show_main_menu() {
+    if [[ "$AUTO_INSTALL" == "true" ]]; then
+        case "$ACTION" in
+            backup)
+                return 2  # Backup only
+                ;;
+            install|*)
+                return 1  # Install themes
+                ;;
+        esac
+    fi
+    
     echo ""
     echo "📋 What would you like to do?"
     echo "=============================="
