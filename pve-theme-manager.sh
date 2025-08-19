@@ -153,6 +153,9 @@ get_status() {
         fi
     fi
     
+    # Count available themes  
+    local available_themes=$(count_themes)
+    
     # Build status message
     status_text="🎨 Current Theme: $current_theme\n\n"
     status_text+="📄 Template Modified: $template_modified\n"
@@ -160,6 +163,8 @@ get_status() {
         status_text+="🎯 Theme Files Present: $theme_files_present\n"
         status_text+="   $(printf '%s, ' "${active_themes[@]}" | sed 's/, $//')\n"
     fi
+    status_text+="\n🎨 Theme Management:\n"
+    status_text+="   Available Themes: $available_themes\n"
     status_text+="\n🛡️  Backup Information:\n"
     status_text+="   Available Backups: $backup_count\n"
     status_text+="   Latest Backup: $last_backup\n\n"
@@ -399,11 +404,10 @@ restore_backup() {
 
 # Get available themes dynamically
 get_available_themes() {
-    local themes=()
+    local -n theme_array_ref=$1
     local counter=1
     
     if [[ ! -d "$THEMES_DIR" ]]; then
-        echo "No themes directory found"
         return 1
     fi
     
@@ -423,22 +427,44 @@ get_available_themes() {
                 *purple*|*violet*) emoji="🟣" ;;
             esac
             
-            themes+=("$counter" "$emoji $display_name")
+            theme_array_ref+=("$counter" "$emoji $display_name")
             counter=$((counter + 1))
         fi
     done
     
-    printf '%s\n' "${themes[@]}"
+    return 0
+}
+
+# Count available themes
+count_themes() {
+    local count=0
+    
+    if [[ ! -d "$THEMES_DIR" ]]; then
+        echo "0"
+        return
+    fi
+    
+    for theme_file in "$THEMES_DIR"/*.css; do
+        if [[ -f "$theme_file" ]]; then
+            count=$((count + 1))
+        fi
+    done
+    
+    echo "$count"
 }
 
 # Theme selection submenu
 theme_selection() {
     local choice
-    local theme_menu_items
+    local theme_menu_items=()
     
     while true; do
         # Get available themes dynamically
-        theme_menu_items=($(get_available_themes))
+        theme_menu_items=()
+        if ! get_available_themes theme_menu_items; then
+            show_dialog msgbox "No Themes Found" "❌ No theme files found in:\n$THEMES_DIR\n\nPlease reinstall the theme manager."
+            return
+        fi
         
         if [[ ${#theme_menu_items[@]} -eq 0 ]]; then
             show_dialog msgbox "No Themes Found" "❌ No theme files found in:\n$THEMES_DIR\n\nPlease reinstall the theme manager."
@@ -736,8 +762,11 @@ main() {
     # Check requirements first
     check_requirements
     
-    # Show welcome message
-    show_dialog msgbox "Welcome!" "🎨 Welcome to Proxmox VE Theme Manager!\n\nThis tool helps you safely install and manage\ncustom themes for your Proxmox VE interface.\n\n✅ All requirements verified!"
+    # Count available themes
+    local theme_count=$(count_themes)
+    
+    # Show welcome message with theme count
+    show_dialog msgbox "Welcome!" "🎨 Welcome to Proxmox VE Theme Manager!\n\nThis tool helps you safely install and manage\ncustom themes for your Proxmox VE interface.\n\n✅ System Ready:\n   • Requirements verified\n   • $theme_count themes available\n   • Backup system ready"
     
     # Start main menu
     main_menu
