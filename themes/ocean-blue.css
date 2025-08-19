@@ -1,0 +1,125 @@
+/* Ocean Blue Theme for Proxmox VE */
+
+:root {
+    --pve-ocean-primary: #0ea5e9;
+    --pve-ocean-primary-hover: #0284c7;
+    --pve-ocean-secondary: #0369a1;
+    --pve-ocean-light: #e0f2fe;
+    --pve-ocean-medium: #0891b2;
+    --pve-ocean-dark: #164e63;
+    --pve-ocean-text: #0c4a6e;
+    --pve-ocean-border: #7dd3fc;
+    --pve-ocean-success: #059669;
+    --pve-ocean-warning: #d97706;
+    --pve-ocean-danger: #dc2626;
+}
+
+/* Light mode ocean theme */
+body:not(.proxmox-theme-dark) {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-panel-header,
+body:not(.proxmox-theme-dark) .x-window-header {
+    background: linear-gradient(135deg, var(--pve-ocean-primary), var(--pve-ocean-secondary)) !important;
+    color: white !important;
+    border-color: var(--pve-ocean-primary) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+body:not(.proxmox-theme-dark) .x-panel,
+body:not(.proxmox-theme-dark) .x-window,
+body:not(.proxmox-theme-dark) .x-grid-panel {
+    background-color: white !important;
+    border-color: var(--pve-ocean-border) !important;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.1);
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row {
+    border-color: var(--pve-ocean-border) !important;
+    color: var(--pve-ocean-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-alt {
+    background-color: var(--pve-ocean-light) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-over {
+    background-color: var(--pve-ocean-primary) !important;
+    color: white !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-selected {
+    background-color: var(--pve-ocean-secondary) !important;
+    color: white !important;
+}
+
+body:not(.proxmox-theme-dark) .x-btn {
+    background: linear-gradient(135deg, white, #f8fafc) !important;
+    border-color: var(--pve-ocean-border) !important;
+    color: var(--pve-ocean-text) !important;
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
+}
+
+body:not(.proxmox-theme-dark) .x-btn:hover {
+    background: linear-gradient(135deg, var(--pve-ocean-primary), var(--pve-ocean-secondary)) !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(14, 165, 233, 0.2);
+}
+
+body:not(.proxmox-theme-dark) .x-toolbar {
+    background: linear-gradient(135deg, #f0f9ff, white) !important;
+    border-color: var(--pve-ocean-border) !important;
+}
+
+/* Dark mode ocean theme */
+body.proxmox-theme-dark {
+    background: linear-gradient(135deg, #082f49, #0c4a6e) !important;
+    color: #e0f2fe !important;
+}
+
+body.proxmox-theme-dark .x-panel-header,
+body.proxmox-theme-dark .x-window-header {
+    background: linear-gradient(135deg, var(--pve-ocean-dark), var(--pve-ocean-secondary)) !important;
+    color: #e0f2fe !important;
+    border-color: var(--pve-ocean-medium) !important;
+}
+
+body.proxmox-theme-dark .x-panel,
+body.proxmox-theme-dark .x-window,
+body.proxmox-theme-dark .x-grid-panel {
+    background-color: rgba(12, 74, 110, 0.3) !important;
+    border-color: var(--pve-ocean-medium) !important;
+    color: #e0f2fe !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row {
+    background-color: rgba(12, 74, 110, 0.2) !important;
+    border-color: var(--pve-ocean-medium) !important;
+    color: #e0f2fe !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-alt {
+    background-color: rgba(12, 74, 110, 0.4) !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-over {
+    background-color: var(--pve-ocean-primary) !important;
+    color: white !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-selected {
+    background-color: var(--pve-ocean-secondary) !important;
+    color: white !important;
+}
+
+/* Status colors for both themes */
+.pve-status-online { color: var(--pve-ocean-success) !important; }
+.pve-status-offline { color: var(--pve-ocean-danger) !important; }
+.pve-status-warning { color: var(--pve-ocean-warning) !important; }
+
+/* Smooth transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}

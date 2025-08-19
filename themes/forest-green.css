@@ -1,0 +1,147 @@
+/* Forest Green Theme for Proxmox VE */
+
+:root {
+    --pve-forest-primary: #16a34a;
+    --pve-forest-primary-hover: #15803d;
+    --pve-forest-secondary: #166534;
+    --pve-forest-light: #f0fdf4;
+    --pve-forest-medium: #22c55e;
+    --pve-forest-dark: #14532d;
+    --pve-forest-text: #365314;
+    --pve-forest-border: #86efac;
+    --pve-forest-success: #059669;
+    --pve-forest-warning: #ca8a04;
+    --pve-forest-danger: #dc2626;
+}
+
+/* Light mode forest theme */
+body:not(.proxmox-theme-dark) {
+    background: linear-gradient(135deg, #f7fef7, var(--pve-forest-light)) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-panel-header,
+body:not(.proxmox-theme-dark) .x-window-header {
+    background: linear-gradient(135deg, var(--pve-forest-primary), var(--pve-forest-secondary)) !important;
+    color: white !important;
+    border-color: var(--pve-forest-primary) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+body:not(.proxmox-theme-dark) .x-panel,
+body:not(.proxmox-theme-dark) .x-window,
+body:not(.proxmox-theme-dark) .x-grid-panel {
+    background-color: white !important;
+    border-color: var(--pve-forest-border) !important;
+    box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.1);
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row {
+    border-color: var(--pve-forest-border) !important;
+    color: var(--pve-forest-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-alt {
+    background-color: var(--pve-forest-light) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-over {
+    background-color: var(--pve-forest-primary) !important;
+    color: white !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid3-row-selected {
+    background-color: var(--pve-forest-secondary) !important;
+    color: white !important;
+}
+
+body:not(.proxmox-theme-dark) .x-btn {
+    background: linear-gradient(135deg, white, #f8fdf8) !important;
+    border-color: var(--pve-forest-border) !important;
+    color: var(--pve-forest-text) !important;
+    box-shadow: 0 2px 4px rgba(22, 163, 74, 0.1);
+}
+
+body:not(.proxmox-theme-dark) .x-btn:hover {
+    background: linear-gradient(135deg, var(--pve-forest-primary), var(--pve-forest-secondary)) !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(22, 163, 74, 0.2);
+}
+
+body:not(.proxmox-theme-dark) .x-toolbar {
+    background: linear-gradient(135deg, #f0fdf4, white) !important;
+    border-color: var(--pve-forest-border) !important;
+}
+
+/* Dark mode forest theme */
+body.proxmox-theme-dark {
+    background: linear-gradient(135deg, #0f1f0f, var(--pve-forest-dark)) !important;
+    color: #dcfce7 !important;
+}
+
+body.proxmox-theme-dark .x-panel-header,
+body.proxmox-theme-dark .x-window-header {
+    background: linear-gradient(135deg, var(--pve-forest-dark), var(--pve-forest-secondary)) !important;
+    color: #dcfce7 !important;
+    border-color: var(--pve-forest-medium) !important;
+}
+
+body.proxmox-theme-dark .x-panel,
+body.proxmox-theme-dark .x-window,
+body.proxmox-theme-dark .x-grid-panel {
+    background-color: rgba(20, 83, 45, 0.3) !important;
+    border-color: var(--pve-forest-medium) !important;
+    color: #dcfce7 !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row {
+    background-color: rgba(20, 83, 45, 0.2) !important;
+    border-color: var(--pve-forest-medium) !important;
+    color: #dcfce7 !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-alt {
+    background-color: rgba(20, 83, 45, 0.4) !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-over {
+    background-color: var(--pve-forest-primary) !important;
+    color: white !important;
+}
+
+body.proxmox-theme-dark .x-grid3-row-selected {
+    background-color: var(--pve-forest-secondary) !important;
+    color: white !important;
+}
+
+body.proxmox-theme-dark .x-btn {
+    background: linear-gradient(135deg, rgba(20, 83, 45, 0.5), rgba(20, 83, 45, 0.3)) !important;
+    border-color: var(--pve-forest-medium) !important;
+    color: #dcfce7 !important;
+}
+
+body.proxmox-theme-dark .x-btn:hover {
+    background: linear-gradient(135deg, var(--pve-forest-primary), var(--pve-forest-secondary)) !important;
+    color: white !important;
+}
+
+/* Status colors */
+.pve-status-online { color: var(--pve-forest-success) !important; }
+.pve-status-offline { color: var(--pve-forest-danger) !important; }
+.pve-status-warning { color: var(--pve-forest-warning) !important; }
+
+/* Nature-inspired accents */
+body:not(.proxmox-theme-dark) .x-panel-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #10b981, #34d399, #10b981);
+}
+
+/* Smooth transitions */
+* {
+    transition: all 0.3s ease !important;
+}
