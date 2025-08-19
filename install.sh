@@ -40,7 +40,7 @@ echo "🎨 Discovering and downloading theme files..."
 
 # Try to discover themes by attempting to download them
 THEMES=()
-POTENTIAL_THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
+POTENTIAL_THEMES=("dark-blue.css" "emerald-green.css" "modern-dark.css" "minimal-gray.css" "clean-light.css")
 
 echo "   🔍 Checking for available themes..."
 for theme in "${POTENTIAL_THEMES[@]}"; do
