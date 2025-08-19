@@ -1,0 +1,203 @@
+/*
+ * Emerald Green Theme for Proxmox VE
+ * A nature-inspired theme with emerald green accents
+ * Author: PVE Theme Manager
+ */
+
+/* Theme Variables */
+:root {
+    --pve-primary: #10b981;
+    --pve-primary-hover: #059669;
+    --pve-secondary: #047857;
+    --pve-bg-light: #f0fdf4;
+    --pve-bg-medium: #ecfdf5;
+    --pve-bg-accent: #d1fae5;
+    --pve-text-dark: #064e3b;
+    --pve-text-medium: #065f46;
+    --pve-border: #a7f3d0;
+    --pve-border-dark: #6ee7b7;
+    --pve-success: #10b981;
+    --pve-warning: #d97706;
+    --pve-error: #dc2626;
+}
+
+/* Light theme base */
+body {
+    background: linear-gradient(135deg, var(--pve-bg-light), var(--pve-bg-medium)) !important;
+    color: var(--pve-text-dark) !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Main containers */
+.x-panel,
+.x-window,
+.x-grid-panel {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-text-dark) !important;
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* Headers */
+.x-panel-header,
+.x-window-header {
+    background: linear-gradient(135deg, var(--pve-primary), var(--pve-secondary)) !important;
+    color: white !important;
+    border-color: var(--pve-primary) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    font-weight: 600 !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* Grid rows */
+.x-grid3-row {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-text-medium) !important;
+}
+
+.x-grid3-row-alt {
+    background-color: var(--pve-bg-accent) !important;
+}
+
+.x-grid3-row-over {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+    transform: translateX(2px) !important;
+}
+
+.x-grid3-row-selected {
+    background-color: var(--pve-secondary) !important;
+    color: white !important;
+}
+
+/* Buttons */
+.x-btn {
+    background: linear-gradient(135deg, white, var(--pve-bg-light)) !important;
+    border-color: var(--pve-border-dark) !important;
+    color: var(--pve-text-dark) !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+}
+
+.x-btn:hover {
+    background: linear-gradient(135deg, var(--pve-primary), var(--pve-secondary)) !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Forms */
+.x-form-field,
+.x-form-text {
+    background-color: white !important;
+    border-color: var(--pve-border-dark) !important;
+    color: var(--pve-text-dark) !important;
+    border-radius: 6px !important;
+}
+
+.x-form-field:focus,
+.x-form-text:focus {
+    border-color: var(--pve-primary) !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Toolbar */
+.x-toolbar {
+    background: linear-gradient(135deg, var(--pve-bg-medium), var(--pve-bg-accent)) !important;
+    border-color: var(--pve-border) !important;
+}
+
+/* Menu */
+.x-menu {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+.x-menu-item {
+    color: var(--pve-text-dark) !important;
+}
+
+.x-menu-item:hover {
+    background-color: var(--pve-bg-accent) !important;
+    color: var(--pve-secondary) !important;
+}
+
+/* Tree panel */
+.x-tree-node {
+    color: var(--pve-text-medium) !important;
+}
+
+.x-tree-node-over {
+    background-color: var(--pve-bg-accent) !important;
+    color: var(--pve-secondary) !important;
+}
+
+.x-tree-selected {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+}
+
+/* Status colors */
+.pve-status-online {
+    color: var(--pve-success) !important;
+}
+
+.pve-status-offline {
+    color: var(--pve-error) !important;
+}
+
+.pve-status-warning {
+    color: var(--pve-warning) !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pve-bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pve-border-dark);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pve-primary);
+}
+
+/* Smooth transitions */
+* {
+    transition: all 0.3s ease !important;
+}
+
+/* Nature-inspired accents */
+.x-panel-header::before {
+    content: '🌿';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+    font-size: 14px;
+}
+
+/* Subtle leaf pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}

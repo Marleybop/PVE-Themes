@@ -402,11 +402,11 @@ theme_selection() {
     local choice
     
     while true; do
-        choice=$(show_dialog menu "🎨 Theme Selection" "Choose a theme to install:" 15 80 \
-            "1" "🌙 Dark Blue - Professional dark theme" \
-            "2" "🌊 Ocean Blue - Light/dark adaptive" \
-            "3" "🌲 Forest Green - Nature-inspired" \
-            "4" "✨ Minimal Light - Clean & simple" \
+        choice=$(show_dialog menu "🎨 Theme Selection" "Choose a theme to install:" 18 80 \
+            "1" "🌙 Dark Blue - Professional dark theme with blue accents" \
+            "2" "🟢 Emerald Green - Nature-inspired with green tones" \
+            "3" "🌅 Sunset Orange - Warm sunset colors with orange/amber" \
+            "4" "⚪ Minimal Gray - Clean minimal design with subtle grays" \
             "5" "📖 View Screenshots & Documentation" \
             "6" "⬅️  Back to Main Menu" \
             2>&1 >/dev/tty)
@@ -416,7 +416,7 @@ theme_selection() {
                 install_theme "$choice"
                 ;;
             5)
-                show_dialog msgbox "Documentation" "📖 Theme Screenshots & Documentation\n\nView themes at:\nhttp://10.0.10.41:3000/Marleybop/pve-themes\n\nScreenshots and detailed descriptions available in the repository."
+                show_dialog msgbox "Documentation & Screenshots" "📖 Theme Screenshots & Documentation\n\nView detailed screenshots and theme descriptions at:\nhttp://10.0.10.41:3000/Marleybop/pve-themes\n\n🎨 Available Themes:\n• Dark Blue: Professional dark theme\n• Emerald Green: Nature-inspired design\n• Sunset Orange: Warm sunset colors\n• Minimal Gray: Clean, minimal styling\n\nAll themes are original designs by PVE Theme Manager." 18 80
                 ;;
             6|"")
                 break
@@ -425,21 +425,151 @@ theme_selection() {
     done
 }
 
-# Install theme (placeholder)
+# Install theme
 install_theme() {
     local theme_num="$1"
     local theme_name=""
+    local theme_file=""
     
     case $theme_num in
-        1) theme_name="Dark Blue" ;;
-        2) theme_name="Ocean Blue" ;;
-        3) theme_name="Forest Green" ;;
-        4) theme_name="Minimal Light" ;;
+        1) 
+            theme_name="Dark Blue"
+            theme_file="dark-blue.css"
+            ;;
+        2) 
+            theme_name="Emerald Green" 
+            theme_file="emerald-green.css"
+            ;;
+        3) 
+            theme_name="Sunset Orange"
+            theme_file="sunset-orange.css"
+            ;;
+        4) 
+            theme_name="Minimal Gray"
+            theme_file="minimal-gray.css"
+            ;;
+        *)
+            show_dialog msgbox "Error" "Invalid theme selection."
+            return
+            ;;
     esac
     
-    if show_dialog yesno "Install Theme" "Install $theme_name theme?\n\n⚠️  This will modify Proxmox files.\nMake sure you have a backup!\n\nContinue?"; then
-        # Placeholder for actual theme installation
-        show_dialog msgbox "Theme Installed" "✅ $theme_name theme installed successfully!\n\n🔄 Restart pveproxy service?\nsystemctl restart pveproxy\n\n🌐 Refresh your browser to see changes."
+    # Check if theme file exists
+    local source_theme="$THEMES_DIR/$theme_file"
+    if [[ ! -f "$source_theme" ]]; then
+        show_dialog msgbox "Error" "Theme file not found:\n$source_theme\n\nPlease reinstall the theme manager."
+        return
+    fi
+    
+    # Check if backup exists - recommend creating one
+    local backup_count=$(ls -1d "$BACKUP_DIR"/backup-* 2>/dev/null | wc -l)
+    if [[ $backup_count -eq 0 ]]; then
+        if show_dialog yesno "No Backup Found" "⚠️  No backups found!\n\nIt's strongly recommended to create a backup before installing themes.\n\nCreate backup now?"; then
+            create_backup
+        else
+            if ! show_dialog yesno "Continue Without Backup?" "⚠️  Are you sure you want to install a theme without a backup?\n\nThis could make recovery difficult if something goes wrong.\n\nContinue anyway?"; then
+                return
+            fi
+        fi
+    fi
+    
+    # Final confirmation
+    if ! show_dialog yesno "Install $theme_name Theme" "Install $theme_name theme?\n\nThis will:\n• Copy theme CSS file to Proxmox\n• Modify index.html.tpl to load the theme\n• Enable the custom theme\n\nContinue?"; then
+        return
+    fi
+    
+    # Perform installation
+    local install_log="/tmp/pve-theme-install-$(date +%s).log"
+    local success=true
+    local steps_completed=0
+    
+    echo "Starting theme installation at $(date)" > "$install_log"
+    echo "Theme: $theme_name ($theme_file)" >> "$install_log"
+    echo "Source: $source_theme" >> "$install_log"
+    echo "" >> "$install_log"
+    
+    # Step 1: Copy theme CSS file
+    echo "Step 1: Copying theme CSS file..." >> "$install_log"
+    local target_css="$PVE_IMAGES_PATH/pve-theme-$theme_file"
+    
+    if cp "$source_theme" "$target_css" 2>>"$install_log"; then
+        local file_size=$(du -h "$target_css" | cut -f1)
+        echo "✅ Theme CSS copied successfully ($file_size)" >> "$install_log"
+        echo "   Target: $target_css" >> "$install_log"
+        steps_completed=$((steps_completed + 1))
+    else
+        echo "❌ Failed to copy theme CSS file" >> "$install_log"
+        success=false
+    fi
+    
+    # Step 2: Modify index.html.tpl
+    if [[ $success == true ]]; then
+        echo "" >> "$install_log"
+        echo "Step 2: Modifying index.html.tpl..." >> "$install_log"
+        
+        # Check if file exists
+        if [[ ! -f "$PVE_INDEX_TEMPLATE" ]]; then
+            echo "❌ index.html.tpl not found at $PVE_INDEX_TEMPLATE" >> "$install_log"
+            success=false
+        else
+            # Remove any existing theme script
+            echo "   Removing existing theme scripts..." >> "$install_log"
+            sed -i '/<script[^>]*pve-theme/,/<\/script>/d' "$PVE_INDEX_TEMPLATE" 2>>"$install_log"
+            
+            # Add new theme script
+            local theme_script="<script>
+// PVE Theme Manager - $theme_name
+(function() {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = '/pve2/images/pve-theme-$theme_file';
+    document.getElementsByTagName('head')[0].appendChild(link);
+})();
+</script>"
+            
+            # Insert before closing head tag
+            if grep -q "</head>" "$PVE_INDEX_TEMPLATE"; then
+                if sed -i "s|</head>|$theme_script\n</head>|" "$PVE_INDEX_TEMPLATE" 2>>"$install_log"; then
+                    echo "✅ Theme script added to index.html.tpl" >> "$install_log"
+                    steps_completed=$((steps_completed + 1))
+                else
+                    echo "❌ Failed to modify index.html.tpl" >> "$install_log"
+                    success=false
+                fi
+            else
+                echo "❌ Could not find </head> tag in index.html.tpl" >> "$install_log"
+                success=false
+            fi
+        fi
+    fi
+    
+    echo "" >> "$install_log"
+    echo "Installation completed at $(date)" >> "$install_log"
+    echo "Success: $success" >> "$install_log"
+    echo "Steps completed: $steps_completed/2" >> "$install_log"
+    
+    # Show results
+    if [[ $success == true ]]; then
+        local message="✅ $theme_name theme installed successfully!\n\n"
+        message+="📄 Steps completed: $steps_completed/2\n"
+        message+="🎨 Theme file: pve-theme-$theme_file\n"
+        message+="\n💡 Installation log: $install_log"
+        
+        show_dialog msgbox "Installation Complete" "$message" 15 80
+        
+        # Ask about service restart
+        if show_dialog yesno "Restart Service" "🔄 Restart pveproxy service now to apply the theme?\n\nThis will briefly interrupt the web interface."; then
+            if systemctl restart pveproxy 2>>"$install_log"; then
+                show_dialog msgbox "Service Restarted" "✅ pveproxy service restarted successfully!\n\n🌐 Refresh your browser to see the $theme_name theme."
+            else
+                show_dialog msgbox "Service Error" "❌ Failed to restart pveproxy service.\n\nPlease restart manually:\nsudo systemctl restart pveproxy"
+            fi
+        else
+            show_dialog msgbox "Manual Restart Needed" "⚠️  Remember to restart pveproxy service:\nsudo systemctl restart pveproxy\n\nThen refresh your browser to see the theme."
+        fi
+    else
+        show_dialog msgbox "Installation Error" "❌ Theme installation failed!\n\nCheck the log for details:\n$install_log\n\n🔄 You may want to restore from backup." 15 80
     fi
 }
 

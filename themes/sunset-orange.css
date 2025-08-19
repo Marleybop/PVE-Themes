@@ -1,0 +1,212 @@
+/*
+ * Sunset Orange Theme for Proxmox VE  
+ * A warm sunset-inspired theme with orange and amber tones
+ * Author: PVE Theme Manager
+ */
+
+/* Theme Variables */
+:root {
+    --pve-primary: #ea580c;
+    --pve-primary-hover: #dc2626;
+    --pve-secondary: #c2410c;
+    --pve-accent: #fed7aa;
+    --pve-bg-light: #fff7ed;
+    --pve-bg-medium: #ffedd5;
+    --pve-bg-warm: #fed7aa;
+    --pve-text-dark: #9a3412;
+    --pve-text-medium: #c2410c;
+    --pve-border: #fdba74;
+    --pve-border-dark: #fb923c;
+    --pve-success: #16a34a;
+    --pve-warning: #eab308;
+    --pve-error: #dc2626;
+}
+
+/* Warm light theme */
+body {
+    background: linear-gradient(135deg, var(--pve-bg-light), var(--pve-bg-medium)) !important;
+    color: var(--pve-text-dark) !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Main containers */
+.x-panel,
+.x-window,
+.x-grid-panel {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-text-dark) !important;
+    box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* Headers */
+.x-panel-header,
+.x-window-header {
+    background: linear-gradient(135deg, var(--pve-primary), var(--pve-secondary)) !important;
+    color: white !important;
+    border-color: var(--pve-primary) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    font-weight: 600 !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* Grid rows */
+.x-grid3-row {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-text-medium) !important;
+}
+
+.x-grid3-row-alt {
+    background-color: var(--pve-bg-warm) !important;
+}
+
+.x-grid3-row-over {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(234, 88, 12, 0.3) !important;
+}
+
+.x-grid3-row-selected {
+    background-color: var(--pve-secondary) !important;
+    color: white !important;
+}
+
+/* Buttons */
+.x-btn {
+    background: linear-gradient(135deg, white, var(--pve-bg-light)) !important;
+    border-color: var(--pve-border-dark) !important;
+    color: var(--pve-text-dark) !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 1px 3px rgba(234, 88, 12, 0.1) !important;
+}
+
+.x-btn:hover {
+    background: linear-gradient(135deg, var(--pve-primary), var(--pve-secondary)) !important;
+    color: white !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(234, 88, 12, 0.3) !important;
+}
+
+/* Forms */
+.x-form-field,
+.x-form-text {
+    background-color: white !important;
+    border-color: var(--pve-border-dark) !important;
+    color: var(--pve-text-dark) !important;
+    border-radius: 6px !important;
+}
+
+.x-form-field:focus,
+.x-form-text:focus {
+    border-color: var(--pve-primary) !important;
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1) !important;
+}
+
+/* Toolbar */
+.x-toolbar {
+    background: linear-gradient(135deg, var(--pve-bg-medium), var(--pve-bg-warm)) !important;
+    border-color: var(--pve-border) !important;
+}
+
+/* Menu */
+.x-menu {
+    background-color: white !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: 0 10px 15px -3px rgba(234, 88, 12, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+.x-menu-item {
+    color: var(--pve-text-dark) !important;
+}
+
+.x-menu-item:hover {
+    background-color: var(--pve-bg-warm) !important;
+    color: var(--pve-secondary) !important;
+}
+
+/* Tree panel */
+.x-tree-node {
+    color: var(--pve-text-medium) !important;
+}
+
+.x-tree-node-over {
+    background-color: var(--pve-bg-warm) !important;
+    color: var(--pve-secondary) !important;
+}
+
+.x-tree-selected {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+}
+
+/* Status colors */
+.pve-status-online {
+    color: var(--pve-success) !important;
+}
+
+.pve-status-offline {
+    color: var(--pve-error) !important;
+}
+
+.pve-status-warning {
+    color: var(--pve-warning) !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pve-bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pve-border-dark);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pve-primary);
+}
+
+/* Smooth transitions */
+* {
+    transition: all 0.3s ease !important;
+}
+
+/* Sunset gradient accent */
+.x-panel-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Warm ambient glow */
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: sunset-glow 20s ease-in-out infinite alternate;
+}
+
+@keyframes sunset-glow {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.8; }
+}

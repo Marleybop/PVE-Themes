@@ -35,16 +35,36 @@ echo "⬇️  Downloading theme manager..."
 curl -fsSL "$REPO_URL/pve-theme-manager.sh" -o "$INSTALL_DIR/pve-theme-manager.sh"
 chmod +x "$INSTALL_DIR/pve-theme-manager.sh"
 
+# Download theme files
+echo "🎨 Downloading theme files..."
+THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
+
+for theme in "${THEMES[@]}"; do
+    echo "   📥 $theme"
+    curl -fsSL "$REPO_URL/themes/$theme" -o "$INSTALL_DIR/themes/$theme"
+done
+
 # Create symlink for easy access
 ln -sf "$INSTALL_DIR/pve-theme-manager.sh" /usr/local/bin/pve-theme
 
 echo ""
 echo "🎉 Installation completed successfully!"
 echo ""
+echo "📦 Installed:"
+echo "   • Theme manager script"
+echo "   • 4 original custom themes"
+echo "   • Backup and restore system"
+echo ""
 echo "🚀 Run the theme manager with:"
 echo "   pve-theme"
 echo "   OR"
 echo "   $INSTALL_DIR/pve-theme-manager.sh"
+echo ""
+echo "🎨 Available Themes:"
+echo "   • Dark Blue - Professional dark theme"
+echo "   • Emerald Green - Nature-inspired design"
+echo "   • Sunset Orange - Warm sunset colors"
+echo "   • Minimal Gray - Clean minimal styling"
 echo ""
 echo "📖 Documentation: $REPO_URL"
 
