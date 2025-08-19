@@ -35,13 +35,30 @@ echo "⬇️  Downloading theme manager..."
 curl -fsSL "$REPO_URL/pve-theme-manager.sh" -o "$INSTALL_DIR/pve-theme-manager.sh"
 chmod +x "$INSTALL_DIR/pve-theme-manager.sh"
 
-# Download theme files
-echo "🎨 Downloading theme files..."
-THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
+# Download theme files dynamically
+echo "🎨 Discovering and downloading theme files..."
+
+# Get list of CSS files from the themes directory in the repo
+THEME_LIST=$(curl -fsSL "$REPO_URL/themes/" 2>/dev/null | grep -oP '(?<=href=")[^"]*\.css(?=")' || echo "")
+
+if [[ -z "$THEME_LIST" ]]; then
+    # Fallback to known themes if API discovery fails
+    echo "   ⚠️  Could not discover themes automatically, using fallback list..."
+    THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
+else
+    # Convert to array
+    THEMES=($THEME_LIST)
+fi
+
+echo "   📊 Found ${#THEMES[@]} theme(s)"
 
 for theme in "${THEMES[@]}"; do
     echo "   📥 $theme"
-    curl -fsSL "$REPO_URL/themes/$theme" -o "$INSTALL_DIR/themes/$theme"
+    if curl -fsSL "$REPO_URL/themes/$theme" -o "$INSTALL_DIR/themes/$theme" 2>/dev/null; then
+        echo "   ✅ Downloaded $theme"
+    else
+        echo "   ❌ Failed to download $theme"
+    fi
 done
 
 # Create symlink for easy access
@@ -52,7 +69,7 @@ echo "🎉 Installation completed successfully!"
 echo ""
 echo "📦 Installed:"
 echo "   • Theme manager script"
-echo "   • 4 original custom themes"
+echo "   • ${#THEMES[@]} original custom themes"
 echo "   • Backup and restore system"
 echo ""
 echo "🚀 Run the theme manager with:"
@@ -60,12 +77,7 @@ echo "   pve-theme"
 echo "   OR"
 echo "   $INSTALL_DIR/pve-theme-manager.sh"
 echo ""
-echo "🎨 Available Themes:"
-echo "   • Dark Blue - Professional dark theme"
-echo "   • Emerald Green - Nature-inspired design"
-echo "   • Sunset Orange - Warm sunset colors"
-echo "   • Minimal Gray - Clean minimal styling"
-echo ""
+echo "🎨 Use the theme manager to see all available themes"
 echo "📖 Documentation: $REPO_URL"
 
 # Ask if user wants to run it now

@@ -397,62 +397,100 @@ restore_backup() {
     fi
 }
 
+# Get available themes dynamically
+get_available_themes() {
+    local themes=()
+    local counter=1
+    
+    if [[ ! -d "$THEMES_DIR" ]]; then
+        echo "No themes directory found"
+        return 1
+    fi
+    
+    for theme_file in "$THEMES_DIR"/*.css; do
+        if [[ -f "$theme_file" ]]; then
+            local filename=$(basename "$theme_file" .css)
+            local display_name=$(echo "$filename" | sed 's/-/ /g' | sed 's/\b\w/\u&/g')
+            
+            # Add some emoji based on theme name
+            local emoji="🎨"
+            case "$filename" in
+                *dark*|*blue*) emoji="🌙" ;;
+                *green*|*emerald*) emoji="🟢" ;;
+                *orange*|*sunset*) emoji="🌅" ;;
+                *gray*|*grey*|*minimal*) emoji="⚪" ;;
+                *red*) emoji="🔴" ;;
+                *purple*|*violet*) emoji="🟣" ;;
+            esac
+            
+            themes+=("$counter" "$emoji $display_name")
+            counter=$((counter + 1))
+        fi
+    done
+    
+    printf '%s\n' "${themes[@]}"
+}
+
 # Theme selection submenu
 theme_selection() {
     local choice
+    local theme_menu_items
     
     while true; do
-        choice=$(show_dialog menu "🎨 Theme Selection" "Choose a theme to install:" 18 80 \
-            "1" "🌙 Dark Blue - Professional dark theme with blue accents" \
-            "2" "🟢 Emerald Green - Nature-inspired with green tones" \
-            "3" "🌅 Sunset Orange - Warm sunset colors with orange/amber" \
-            "4" "⚪ Minimal Gray - Clean minimal design with subtle grays" \
-            "5" "📖 View Screenshots & Documentation" \
-            "6" "⬅️  Back to Main Menu" \
-            2>&1 >/dev/tty)
+        # Get available themes dynamically
+        theme_menu_items=($(get_available_themes))
         
-        case $choice in
-            1|2|3|4)
-                install_theme "$choice"
-                ;;
-            5)
-                show_dialog msgbox "Documentation & Screenshots" "📖 Theme Screenshots & Documentation\n\nView detailed screenshots and theme descriptions at:\nhttp://10.0.10.41:3000/Marleybop/pve-themes\n\n🎨 Available Themes:\n• Dark Blue: Professional dark theme\n• Emerald Green: Nature-inspired design\n• Sunset Orange: Warm sunset colors\n• Minimal Gray: Clean, minimal styling\n\nAll themes are original designs by PVE Theme Manager." 18 80
-                ;;
-            6|"")
-                break
-                ;;
-        esac
+        if [[ ${#theme_menu_items[@]} -eq 0 ]]; then
+            show_dialog msgbox "No Themes Found" "❌ No theme files found in:\n$THEMES_DIR\n\nPlease reinstall the theme manager."
+            return
+        fi
+        
+        # Add documentation and back options
+        local total_themes=$((${#theme_menu_items[@]} / 2))
+        local doc_option=$((total_themes + 1))
+        local back_option=$((total_themes + 2))
+        
+        theme_menu_items+=("$doc_option" "📖 View Screenshots & Documentation")
+        theme_menu_items+=("$back_option" "⬅️  Back to Main Menu")
+        
+        choice=$(show_dialog menu "🎨 Theme Selection" "Choose a theme to install:" 20 80 "${theme_menu_items[@]}" 2>&1 >/dev/tty)
+        
+        if [[ -z "$choice" ]]; then
+            break
+        elif [[ "$choice" -eq "$doc_option" ]]; then
+            show_dialog msgbox "Documentation & Screenshots" "📖 Theme Screenshots & Documentation\n\nView detailed screenshots and theme descriptions at:\nhttp://10.0.10.41:3000/Marleybop/pve-themes\n\n🎨 Themes found: $total_themes\n\nAll themes are original designs by PVE Theme Manager." 18 80
+        elif [[ "$choice" -eq "$back_option" ]]; then
+            break
+        elif [[ "$choice" -ge 1 && "$choice" -le "$total_themes" ]]; then
+            install_theme "$choice"
+        fi
     done
 }
 
 # Install theme
 install_theme() {
     local theme_num="$1"
-    local theme_name=""
-    local theme_file=""
     
-    case $theme_num in
-        1) 
-            theme_name="Dark Blue"
-            theme_file="dark-blue.css"
-            ;;
-        2) 
-            theme_name="Emerald Green" 
-            theme_file="emerald-green.css"
-            ;;
-        3) 
-            theme_name="Sunset Orange"
-            theme_file="sunset-orange.css"
-            ;;
-        4) 
-            theme_name="Minimal Gray"
-            theme_file="minimal-gray.css"
-            ;;
-        *)
-            show_dialog msgbox "Error" "Invalid theme selection."
-            return
-            ;;
-    esac
+    # Get the theme file dynamically
+    local counter=1
+    local theme_file=""
+    local theme_name=""
+    
+    for theme_path in "$THEMES_DIR"/*.css; do
+        if [[ -f "$theme_path" ]]; then
+            if [[ $counter -eq $theme_num ]]; then
+                theme_file=$(basename "$theme_path")
+                theme_name=$(basename "$theme_path" .css | sed 's/-/ /g' | sed 's/\b\w/\u&/g')
+                break
+            fi
+            counter=$((counter + 1))
+        fi
+    done
+    
+    if [[ -z "$theme_file" ]]; then
+        show_dialog msgbox "Error" "Invalid theme selection."
+        return
+    fi
     
     # Check if theme file exists
     local source_theme="$THEMES_DIR/$theme_file"
@@ -516,29 +554,38 @@ install_theme() {
             echo "   Removing existing theme scripts..." >> "$install_log"
             sed -i '/<script[^>]*pve-theme/,/<\/script>/d' "$PVE_INDEX_TEMPLATE" 2>>"$install_log"
             
-            # Add new theme script
-            local theme_script="<script>
-// PVE Theme Manager - $theme_name
+            # Create temporary file with theme script
+            local temp_script="/tmp/pve-theme-script-$(date +%s).js"
+            cat > "$temp_script" << 'EOF'
+<script>
+// PVE Theme Manager
 (function() {
     var link = document.createElement('link');
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = '/pve2/images/pve-theme-$theme_file';
+    link.href = '/pve2/images/THEME_FILE_PLACEHOLDER';
     document.getElementsByTagName('head')[0].appendChild(link);
 })();
-</script>"
+</script>
+EOF
+            
+            # Replace placeholder with actual theme file
+            sed -i "s|THEME_FILE_PLACEHOLDER|pve-theme-$theme_file|" "$temp_script"
             
             # Insert before closing head tag
             if grep -q "</head>" "$PVE_INDEX_TEMPLATE"; then
-                if sed -i "s|</head>|$theme_script\n</head>|" "$PVE_INDEX_TEMPLATE" 2>>"$install_log"; then
+                if sed -i -e "/<\/head>/e cat $temp_script" -e "/<\/head>/i\\" "$PVE_INDEX_TEMPLATE" 2>>"$install_log"; then
                     echo "✅ Theme script added to index.html.tpl" >> "$install_log"
                     steps_completed=$((steps_completed + 1))
+                    rm -f "$temp_script"
                 else
                     echo "❌ Failed to modify index.html.tpl" >> "$install_log"
+                    rm -f "$temp_script"
                     success=false
                 fi
             else
                 echo "❌ Could not find </head> tag in index.html.tpl" >> "$install_log"
+                rm -f "$temp_script"
                 success=false
             fi
         fi
@@ -575,9 +622,73 @@ install_theme() {
 
 # Uninstall theme manager
 uninstall_manager() {
-    if show_dialog yesno "Uninstall Theme Manager" "⚠️  This will:\n• Remove all theme manager files\n• Keep your backups safe\n• Restore original Proxmox theme\n\nContinue with uninstall?"; then
-        # Placeholder for uninstall logic
-        show_dialog msgbox "Uninstall Complete" "✅ Theme Manager uninstalled successfully!\n\nYour backups are preserved in:\n$BACKUP_DIR"
+    if show_dialog yesno "Uninstall Theme Manager" "⚠️  This will:\n• Remove all theme manager files\n• Remove symlink from /usr/local/bin/pve-theme\n• Restore original Proxmox theme\n• Keep your backups safe\n\nContinue with uninstall?"; then
+        
+        local uninstall_log="/tmp/pve-theme-uninstall-$(date +%s).log"
+        echo "Starting uninstall at $(date)" > "$uninstall_log"
+        
+        # First restore original theme if any custom theme is active
+        echo "Step 1: Restoring original theme..." >> "$uninstall_log"
+        
+        # Remove theme CSS files
+        local theme_files_removed=0
+        for css_file in "$PVE_IMAGES_PATH"/pve-theme-*.css; do
+            if [[ -f "$css_file" ]]; then
+                local filename=$(basename "$css_file")
+                if rm "$css_file" 2>>"$uninstall_log"; then
+                    echo "✅ Removed theme file: $filename" >> "$uninstall_log"
+                    theme_files_removed=$((theme_files_removed + 1))
+                else
+                    echo "⚠️  Could not remove theme file: $filename" >> "$uninstall_log"
+                fi
+            fi
+        done
+        
+        # Restore from backup if available
+        local latest_backup_dir=$(ls -1td "$BACKUP_DIR"/backup-* 2>/dev/null | head -n1)
+        if [[ -n "$latest_backup_dir" && -f "$latest_backup_dir/index.html.tpl.original" ]]; then
+            if cp "$latest_backup_dir/index.html.tpl.original" "$PVE_INDEX_TEMPLATE" 2>>"$uninstall_log"; then
+                echo "✅ Restored original index.html.tpl from backup" >> "$uninstall_log"
+            else
+                echo "⚠️  Could not restore index.html.tpl from backup" >> "$uninstall_log"
+            fi
+        else
+            echo "⚠️  No backup found to restore index.html.tpl" >> "$uninstall_log"
+        fi
+        
+        # Remove theme manager files
+        echo "Step 2: Removing theme manager files..." >> "$uninstall_log"
+        
+        # Remove symlink
+        if [[ -L "/usr/local/bin/pve-theme" ]]; then
+            if rm "/usr/local/bin/pve-theme" 2>>"$uninstall_log"; then
+                echo "✅ Removed symlink: /usr/local/bin/pve-theme" >> "$uninstall_log"
+            else
+                echo "⚠️  Could not remove symlink: /usr/local/bin/pve-theme" >> "$uninstall_log"
+            fi
+        fi
+        
+        # Remove installation directory
+        local install_dir=$(dirname "$SCRIPT_DIR")
+        if [[ "$install_dir" == *"pve-theme-manager"* ]]; then
+            if rm -rf "$install_dir" 2>>"$uninstall_log"; then
+                echo "✅ Removed installation directory: $install_dir" >> "$uninstall_log"
+            else
+                echo "⚠️  Could not remove installation directory: $install_dir" >> "$uninstall_log"
+            fi
+        fi
+        
+        echo "Uninstall completed at $(date)" >> "$uninstall_log"
+        
+        # Restart pveproxy
+        if systemctl restart pveproxy 2>>"$uninstall_log"; then
+            echo "✅ pveproxy service restarted" >> "$uninstall_log"
+        else
+            echo "⚠️  Could not restart pveproxy service" >> "$uninstall_log"
+        fi
+        
+        show_dialog msgbox "Uninstall Complete" "✅ Theme Manager uninstalled successfully!\n\n📊 Summary:\n• Theme files removed: $theme_files_removed\n• Original theme restored\n• Manager files removed\n\n🛡️  Your backups are preserved in:\n$BACKUP_DIR\n\n📝 Uninstall log: $uninstall_log" 18 80
+        
         exit 0
     fi
 }
