@@ -1,0 +1,247 @@
+/*
+ * Clean Light Theme for Proxmox VE
+ * High contrast light theme with excellent readability
+ * Author: PVE Theme Manager
+ */
+
+/* Theme Variables - Optimized for readability */
+:root {
+    --pve-primary: #2563eb;
+    --pve-primary-hover: #1d4ed8;
+    --pve-primary-light: #3b82f6;
+    --pve-bg-main: #ffffff;
+    --pve-bg-panel: #f8fafc;
+    --pve-bg-header: #e2e8f0;
+    --pve-bg-alt: #f1f5f9;
+    --pve-text-primary: #1e293b;
+    --pve-text-secondary: #475569;
+    --pve-text-muted: #64748b;
+    --pve-border: #cbd5e1;
+    --pve-border-strong: #94a3b8;
+    --pve-success: #059669;
+    --pve-warning: #d97706;
+    --pve-error: #dc2626;
+}
+
+/* Base styling with high contrast */
+body {
+    background-color: var(--pve-bg-main) !important;
+    color: var(--pve-text-primary) !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Main containers - Clear boundaries */
+.x-panel,
+.x-window,
+.x-grid-panel {
+    background-color: var(--pve-bg-main) !important;
+    border: 2px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Headers - Professional and clear */
+.x-panel-header,
+.x-window-header {
+    background-color: var(--pve-bg-header) !important;
+    color: var(--pve-text-primary) !important;
+    border-bottom: 2px solid var(--pve-primary) !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 10px 15px !important;
+}
+
+/* Grid rows - Excellent contrast */
+.x-grid3-row {
+    background-color: var(--pve-bg-main) !important;
+    border-bottom: 1px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    font-size: 13px !important;
+    padding: 6px !important;
+}
+
+.x-grid3-row-alt {
+    background-color: var(--pve-bg-alt) !important;
+}
+
+.x-grid3-row-over {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+.x-grid3-row-selected {
+    background-color: var(--pve-primary-hover) !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+/* Buttons - High visibility and clear states */
+.x-btn {
+    background-color: var(--pve-bg-panel) !important;
+    border: 2px solid var(--pve-border-strong) !important;
+    color: var(--pve-text-primary) !important;
+    font-weight: 500 !important;
+    padding: 8px 14px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+}
+
+.x-btn:hover {
+    background-color: var(--pve-primary) !important;
+    border-color: var(--pve-primary-hover) !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2) !important;
+}
+
+.x-btn:active,
+.x-btn-pressed {
+    background-color: var(--pve-primary-hover) !important;
+    color: white !important;
+    transform: translateY(1px) !important;
+}
+
+/* Forms - Crystal clear input fields */
+.x-form-field,
+.x-form-text {
+    background-color: white !important;
+    border: 2px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+}
+
+.x-form-field:focus,
+.x-form-text:focus {
+    border-color: var(--pve-primary) !important;
+    background-color: var(--pve-bg-panel) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Toolbar - Clean separation */
+.x-toolbar {
+    background-color: var(--pve-bg-panel) !important;
+    border-bottom: 1px solid var(--pve-border) !important;
+    padding: 10px !important;
+}
+
+/* Menu - Professional dropdown */
+.x-menu {
+    background-color: white !important;
+    border: 2px solid var(--pve-border-strong) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px !important;
+}
+
+.x-menu-item {
+    color: var(--pve-text-primary) !important;
+    padding: 10px 15px !important;
+    font-size: 13px !important;
+}
+
+.x-menu-item:hover {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+}
+
+/* Tree panel - Clear hierarchy */
+.x-tree-node {
+    color: var(--pve-text-secondary) !important;
+    font-size: 13px !important;
+    padding: 4px 8px !important;
+}
+
+.x-tree-node-over {
+    background-color: var(--pve-bg-alt) !important;
+    color: var(--pve-primary) !important;
+}
+
+.x-tree-selected {
+    background-color: var(--pve-primary) !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+/* Status colors - High contrast and clear */
+.pve-status-online,
+.x-grid3-cell-inner .pve-status-online {
+    color: var(--pve-success) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+}
+
+.pve-status-offline,
+.x-grid3-cell-inner .pve-status-offline {
+    color: var(--pve-error) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+}
+
+.pve-status-warning,
+.x-grid3-cell-inner .pve-status-warning {
+    color: var(--pve-warning) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+}
+
+/* Scrollbars - Clean and functional */
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pve-bg-panel);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pve-border-strong);
+    border-radius: 7px;
+    border: 2px solid var(--pve-bg-panel);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pve-text-muted);
+}
+
+/* Smooth transitions */
+.x-btn,
+.x-menu-item,
+.x-tree-node,
+.x-form-field,
+.x-form-text {
+    transition: all 0.2s ease !important;
+}
+
+/* Focus indicators for accessibility */
+.x-btn:focus,
+.x-form-field:focus,
+.x-form-text:focus {
+    outline: 2px solid var(--pve-primary) !important;
+    outline-offset: 2px !important;
+}
+
+/* Enhanced readability for text elements */
+.x-grid3-cell-inner {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+.x-panel-body,
+.x-window-body {
+    line-height: 1.5 !important;
+}
+
+/* Clear button states for better UX */
+.x-btn-disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+.x-btn-disabled:hover {
+    background-color: var(--pve-bg-panel) !important;
+    color: var(--pve-text-primary) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}

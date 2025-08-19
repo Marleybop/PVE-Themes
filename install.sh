@@ -38,16 +38,23 @@ chmod +x "$INSTALL_DIR/pve-theme-manager.sh"
 # Download theme files dynamically
 echo "🎨 Discovering and downloading theme files..."
 
-# Get list of CSS files from the themes directory in the repo
-THEME_LIST=$(curl -fsSL "$REPO_URL/themes/" 2>/dev/null | grep -oP '(?<=href=")[^"]*\.css(?=")' || echo "")
+# Try to discover themes by attempting to download them
+THEMES=()
+POTENTIAL_THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
 
-if [[ -z "$THEME_LIST" ]]; then
-    # Fallback to known themes if API discovery fails
-    echo "   ⚠️  Could not discover themes automatically, using fallback list..."
+echo "   🔍 Checking for available themes..."
+for theme in "${POTENTIAL_THEMES[@]}"; do
+    if curl -fsSL --head "$REPO_URL/themes/$theme" >/dev/null 2>&1; then
+        THEMES+=("$theme")
+        echo "   ✅ Found: $theme"
+    else
+        echo "   ❌ Not found: $theme"
+    fi
+done
+
+if [[ ${#THEMES[@]} -eq 0 ]]; then
+    echo "   ⚠️  No themes found, using fallback..."
     THEMES=("dark-blue.css" "emerald-green.css" "sunset-orange.css" "minimal-gray.css")
-else
-    # Convert to array
-    THEMES=($THEME_LIST)
 fi
 
 echo "   📊 Found ${#THEMES[@]} theme(s)"

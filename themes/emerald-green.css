@@ -1,22 +1,24 @@
 /*
- * Emerald Green Theme for Proxmox VE
- * A nature-inspired theme with emerald green accents
+ * Professional Green Theme for Proxmox VE
+ * High contrast green theme with excellent readability
  * Author: PVE Theme Manager
  */
 
-/* Theme Variables */
+/* Theme Variables - Optimized for readability */
 :root {
-    --pve-primary: #10b981;
-    --pve-primary-hover: #059669;
-    --pve-secondary: #047857;
-    --pve-bg-light: #f0fdf4;
-    --pve-bg-medium: #ecfdf5;
-    --pve-bg-accent: #d1fae5;
-    --pve-text-dark: #064e3b;
-    --pve-text-medium: #065f46;
-    --pve-border: #a7f3d0;
-    --pve-border-dark: #6ee7b7;
-    --pve-success: #10b981;
+    --pve-primary: #059669;
+    --pve-primary-hover: #047857;
+    --pve-primary-light: #10b981;
+    --pve-bg-main: #ffffff;
+    --pve-bg-panel: #f0fdf4;
+    --pve-bg-header: #dcfce7;
+    --pve-bg-alt: #ecfdf5;
+    --pve-text-primary: #14532d;
+    --pve-text-secondary: #166534;
+    --pve-text-muted: #22543d;
+    --pve-border: #86efac;
+    --pve-border-strong: #4ade80;
+    --pve-success: #059669;
     --pve-warning: #d97706;
     --pve-error: #dc2626;
 }

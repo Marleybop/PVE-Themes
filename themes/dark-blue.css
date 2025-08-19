@@ -1,118 +1,139 @@
 /*
- * Dark Blue Theme for Proxmox VE
- * A professional dark theme with blue accents
+ * Professional Dark Theme for Proxmox VE
+ * High contrast dark theme with excellent readability
  * Author: PVE Theme Manager
  */
 
-/* Theme Variables */
+/* Theme Variables - Optimized for readability */
 :root {
-    --pve-primary: #2563eb;
-    --pve-primary-hover: #1d4ed8;
-    --pve-secondary: #1e40af;
-    --pve-bg-dark: #0f172a;
-    --pve-bg-medium: #1e293b;
-    --pve-bg-light: #334155;
-    --pve-text-light: #f8fafc;
-    --pve-text-muted: #cbd5e1;
-    --pve-border: #475569;
+    --pve-primary: #3b82f6;
+    --pve-primary-hover: #2563eb;
+    --pve-primary-light: #60a5fa;
+    --pve-bg-main: #1f2937;
+    --pve-bg-panel: #374151;
+    --pve-bg-header: #4b5563;
+    --pve-bg-input: #111827;
+    --pve-text-primary: #f9fafb;
+    --pve-text-secondary: #e5e7eb;
+    --pve-text-muted: #d1d5db;
+    --pve-border: #6b7280;
+    --pve-border-light: #9ca3af;
     --pve-success: #10b981;
     --pve-warning: #f59e0b;
     --pve-error: #ef4444;
 }
 
-/* Always apply dark theme styles */
+/* Base styling with high contrast */
 body {
-    background-color: var(--pve-bg-dark) !important;
-    color: var(--pve-text-light) !important;
+    background-color: var(--pve-bg-main) !important;
+    color: var(--pve-text-primary) !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
-/* Main containers */
+/* Main containers - High contrast */
 .x-panel,
 .x-window,
 .x-grid-panel {
-    background-color: var(--pve-bg-medium) !important;
-    border-color: var(--pve-border) !important;
-    color: var(--pve-text-light) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+    background-color: var(--pve-bg-panel) !important;
+    border: 2px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Headers */
+/* Headers - Very clear and readable */
 .x-panel-header,
 .x-window-header {
-    background: linear-gradient(135deg, var(--pve-secondary), var(--pve-primary)) !important;
-    color: var(--pve-text-light) !important;
-    border-color: var(--pve-primary) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+    background-color: var(--pve-bg-header) !important;
+    color: var(--pve-text-primary) !important;
+    border-bottom: 2px solid var(--pve-primary) !important;
     font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 10px 15px !important;
 }
 
-/* Grid rows */
+/* Grid rows - Clear contrast */
 .x-grid3-row {
-    background-color: var(--pve-bg-medium) !important;
-    border-color: var(--pve-border) !important;
-    color: var(--pve-text-light) !important;
+    background-color: var(--pve-bg-panel) !important;
+    border-bottom: 1px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    font-size: 13px !important;
 }
 
 .x-grid3-row-alt {
-    background-color: var(--pve-bg-light) !important;
+    background-color: var(--pve-bg-main) !important;
 }
 
 .x-grid3-row-over {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
+    background-color: var(--pve-primary-light) !important;
+    color: var(--pve-bg-main) !important;
+    font-weight: 500 !important;
 }
 
 .x-grid3-row-selected {
-    background-color: var(--pve-secondary) !important;
+    background-color: var(--pve-primary) !important;
     color: white !important;
+    font-weight: 500 !important;
 }
 
-/* Buttons */
+/* Buttons - High visibility */
 .x-btn {
-    background: linear-gradient(135deg, var(--pve-bg-light), var(--pve-bg-medium)) !important;
-    border-color: var(--pve-border) !important;
-    color: var(--pve-text-light) !important;
+    background-color: var(--pve-bg-header) !important;
+    border: 2px solid var(--pve-border-light) !important;
+    color: var(--pve-text-primary) !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
     border-radius: 4px !important;
 }
 
 .x-btn:hover {
-    background: linear-gradient(135deg, var(--pve-primary), var(--pve-secondary)) !important;
+    background-color: var(--pve-primary) !important;
+    border-color: var(--pve-primary-hover) !important;
     color: white !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Forms */
+.x-btn:active,
+.x-btn-pressed {
+    background-color: var(--pve-primary-hover) !important;
+    color: white !important;
+}
+
+/* Forms - Clear input fields */
 .x-form-field,
 .x-form-text {
-    background-color: var(--pve-bg-dark) !important;
-    border-color: var(--pve-border) !important;
-    color: var(--pve-text-light) !important;
+    background-color: var(--pve-bg-input) !important;
+    border: 2px solid var(--pve-border) !important;
+    color: var(--pve-text-primary) !important;
+    font-size: 13px !important;
+    padding: 6px 10px !important;
     border-radius: 4px !important;
 }
 
 .x-form-field:focus,
 .x-form-text:focus {
-    border-color: var(--pve-primary) !important;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
+    border-color: var(--pve-primary-light) !important;
+    background-color: var(--pve-bg-panel) !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
 }
 
-/* Toolbar */
+/* Toolbar - Clear and functional */
 .x-toolbar {
-    background: linear-gradient(135deg, var(--pve-bg-medium), var(--pve-bg-light)) !important;
-    border-color: var(--pve-border) !important;
+    background-color: var(--pve-bg-header) !important;
+    border-bottom: 1px solid var(--pve-border) !important;
+    padding: 8px !important;
 }
 
-/* Menu */
+/* Menu - High readability */
 .x-menu {
-    background-color: var(--pve-bg-medium) !important;
-    border-color: var(--pve-border) !important;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4) !important;
+    background-color: var(--pve-bg-panel) !important;
+    border: 2px solid var(--pve-border) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
 .x-menu-item {
-    color: var(--pve-text-light) !important;
+    color: var(--pve-text-primary) !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
 }
 
 .x-menu-item:hover {
@@ -120,65 +141,73 @@ body {
     color: white !important;
 }
 
-/* Tree panel */
+/* Tree panel - Clear hierarchy */
 .x-tree-node {
-    color: var(--pve-text-light) !important;
+    color: var(--pve-text-secondary) !important;
+    font-size: 13px !important;
 }
 
 .x-tree-node-over {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
+    background-color: var(--pve-primary-light) !important;
+    color: var(--pve-bg-main) !important;
 }
 
 .x-tree-selected {
-    background-color: var(--pve-secondary) !important;
+    background-color: var(--pve-primary) !important;
     color: white !important;
+    font-weight: 500 !important;
 }
 
-/* Status colors */
-.pve-status-online {
-    color: var(--pve-success) !important;
+/* Status colors - High contrast */
+.pve-status-online,
+.x-grid3-cell-inner .pve-status-online {
+    color: #22c55e !important;
+    font-weight: 600 !important;
 }
 
-.pve-status-offline {
-    color: var(--pve-error) !important;
+.pve-status-offline,
+.x-grid3-cell-inner .pve-status-offline {
+    color: #ef4444 !important;
+    font-weight: 600 !important;
 }
 
-.pve-status-warning {
-    color: var(--pve-warning) !important;
+.pve-status-warning,
+.x-grid3-cell-inner .pve-status-warning {
+    color: #f59e0b !important;
+    font-weight: 600 !important;
 }
 
-/* Scrollbars */
+/* Scrollbars - Subtle but visible */
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--pve-bg-dark);
+    background: var(--pve-bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--pve-bg-light);
-    border-radius: 6px;
+    background: var(--pve-border);
+    border-radius: 7px;
+    border: 2px solid var(--pve-bg-main);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--pve-border);
+    background: var(--pve-border-light);
 }
 
-/* Smooth transitions */
-* {
+/* Smooth but not distracting transitions */
+.x-btn,
+.x-menu-item,
+.x-tree-node {
     transition: all 0.2s ease !important;
 }
 
-/* Custom accent elements */
-.x-panel-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--pve-primary), transparent);
+/* Focus indicators for accessibility */
+.x-btn:focus,
+.x-form-field:focus,
+.x-form-text:focus {
+    outline: 2px solid var(--pve-primary-light) !important;
+    outline-offset: 2px !important;
 }
