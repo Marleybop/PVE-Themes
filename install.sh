@@ -176,11 +176,37 @@ show_completion() {
     done
 }
 
-main() {
-    echo "Starting installation..."
+show_main_menu() {
+    echo ""
+    echo "📋 What would you like to do?"
+    echo "=============================="
+    echo "1. Install Theme Manager & Apply Theme"
+    echo "2. Create Backup Only"  
+    echo "3. Exit"
+    echo ""
     
-    check_root
-    check_proxmox
+    while true; do
+        read -p "Select an option (1-3): " choice
+        case $choice in
+            1)
+                return 1  # Install themes
+                ;;
+            2)
+                return 2  # Backup only
+                ;;
+            3)
+                echo "👋 Goodbye!"
+                exit 0
+                ;;
+            *)
+                echo "❌ Invalid choice. Please enter 1, 2, or 3."
+                ;;
+        esac
+    done
+}
+
+install_full_system() {
+    echo "🚀 Installing Theme Manager..."
     create_backup
     install_theme_manager
     select_theme
@@ -188,6 +214,33 @@ main() {
     patch_template
     restart_service
     show_completion
+}
+
+backup_only() {
+    echo "📦 Creating backup only..."
+    create_backup
+    echo ""
+    echo "✅ Backup completed!"
+    echo "📁 Backup location: $BACKUP_DIR"
+    echo ""
+    echo "💡 To install themes later, run this installer again and choose option 1."
+}
+
+main() {
+    check_root
+    check_proxmox
+    
+    show_main_menu
+    menu_choice=$?
+    
+    case $menu_choice in
+        1)
+            install_full_system
+            ;;
+        2)
+            backup_only
+            ;;
+    esac
 }
 
 # Handle script interruption
