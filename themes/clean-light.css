@@ -1,339 +1,222 @@
-/* ==========================================================================
-   Proxmox VE – CYBERPUNK THEME
-   Inspired by SolarPVE. Works with PVE 8.x ExtJS classes.
-   ========================================================================== */
+/* ===========================================================
+   CYBERPUNK PROXMOX THEME
+   Author: ChatGPT (based on SolarPVE idea)
+   Style: Neon Cyberpunk
+   =========================================================== */
 
+/* ----- Color variables ----- */
 :root {
-  --r: 10px;
-  --ring: 0 0 0 2px var(--accent), 0 0 16px var(--accent-soft);
-  --glo: 0 0 8px var(--accent-soft), 0 0 20px var(--accent-soft);
-  --glo-strong: 0 0 10px var(--accent), 0 0 28px var(--accent);
+  --bg: #0b0c10;
+  --bg-alt: #11131a;
+  --panel: #161821;
+  --border: #2a2d3a;
+  --fg: #d0d0e0;
+  --muted: #8888aa;
+
+  --accent: #ff38d1;  /* Neon pink */
+  --accent-2: #12e6ff; /* Cyan */
+  --accent-3: #a1ff0a; /* Lime neon */
+
+  --glo: 0 0 8px rgba(18, 230, 255, .25);
+  --glo-strong: 0 0 12px rgba(255, 56, 209, .45);
 }
 
-html, body, .x-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ----- Base UI ----- */
+body {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
 }
-
-/* ========================================================================== */
-/* LIGHT – “Neon Day”                                                         */
-/* ========================================================================== */
-body:not(.proxmox-theme-dark) {
-  --bg: #f7fbff;
-  --bg2: #eef4ff;
-  --elev: #e5ecff;
-  --fg: #0b1223;
-  --muted: #64748b;
-  --border: #c7d2fe;
-  --accent: #ff38d1;
-  --accent-soft: rgba(255,56,209,.55);
-  --accent-2: #12e6ff;
-  --accent-3: #f5ff4a;
-  --good: #46ff9a;
-  --warn: #ffd166;
-  --bad:  #ff3864;
-  background: var(--bg);
-  color: var(--fg);
+.x-body {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
 }
-
-/* base */
-body:not(.proxmox-theme-dark) .x-body,
-body:not(.proxmox-theme-dark) .x-container,
-body:not(.proxmox-theme-dark) .x-panel,
-body:not(.proxmox-theme-dark) .x-window,
-body:not(.proxmox-theme-dark) .x-message-box {
-  background: var(--bg2) !important;
+.x-border-layout-ct,
+.x-panel-body,
+.x-container,
+.x-panel {
+  background: var(--bg-alt) !important;
   border-color: var(--border) !important;
-  border-radius: var(--r);
-  box-shadow: 0 0 0 1px var(--border) inset;
-}
-
-/* toolbar header */
-body:not(.proxmox-theme-dark) .x-toolbar {
-  background: linear-gradient(180deg, #ffffff, var(--bg2)) !important;
-  border-color: var(--border) !important;
-}
-
-/* treelist */
-body:not(.proxmox-theme-dark) .x-treelist { background: var(--bg2); }
-body:not(.proxmox-theme-dark) .x-treelist-row { border-radius: 8px; }
-body:not(.proxmox-theme-dark) .x-treelist-row:hover { background: rgba(18,230,255,.12); }
-body:not(.proxmox-theme-dark) .x-treelist-item-selected .x-treelist-row {
-  background: rgba(255,56,209,.16);
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-/* panel headers */
-body:not(.proxmox-theme-dark) .x-panel-header {
-  background: linear-gradient(180deg, var(--bg2), #fff);
-  border-bottom: 2px solid var(--accent-2);
   color: var(--fg) !important;
 }
 
-/* buttons */
-body:not(.proxmox-theme-dark) .x-btn {
-  background: linear-gradient(180deg, var(--bg2), var(--elev));
-  border-color: var(--border);
-  color: var(--fg);
-  border-radius: var(--r);
-  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
+/* ----- Toolbar (top bar) ----- */
+.x-toolbar {
+  background: linear-gradient(180deg, #0d0f16, #13141c) !important;
+  border-bottom: 1px solid var(--accent);
 }
-body:not(.proxmox-theme-dark) .x-btn-over {
-  filter: saturate(120%);
-  box-shadow: 0 0 0 1px var(--accent) inset, var(--glo);
-}
-body:not(.proxmox-theme-dark) .x-btn.x-btn-pressed {
-  transform: translateY(1px) scale(.995);
-  box-shadow: 0 0 0 1px var(--accent-2) inset, 0 0 8px var(--accent-2);
-}
-body:not(.proxmox-theme-dark) .x-btn.x-btn-primary,
-body:not(.proxmox-theme-dark) .proxmox-action-primary {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(255,255,255,.65) inset, var(--glo);
-}
-
-/* forms */
-body:not(.proxmox-theme-dark) .x-form-text,
-body:not(.proxmox-theme-dark) .x-form-field,
-body:not(.proxmox-theme-dark) .x-form-trigger-wrap {
-  background: #fff !important;
-  color: var(--fg) !important;
-  border-color: var(--border) !important;
-  border-radius: calc(var(--r) - 2px);
-  box-shadow: 0 0 0 1px var(--border) inset;
-}
-body:not(.proxmox-theme-dark) .x-form-field:focus,
-body:not(.proxmox-theme-dark) .x-form-trigger-wrap:focus-within {
-  outline: none;
-  box-shadow: 0 0 0 1px var(--accent) inset, var(--ring);
-}
-
-/* grids */
-body:not(.proxmox-theme-dark) .x-grid, 
-body:not(.proxmox-theme-dark) .x-grid3,
-body:not(.proxmox-theme-dark) .x-grid-header-ct {
-  background: var(--bg2);
-  border-color: var(--border);
-}
-body:not(.proxmox-theme-dark) .x-grid-item-over .x-grid-cell,
-body:not(.proxmox-theme-dark) .x-grid3-row-over { background: rgba(18,230,255,.12); }
-body:not(.proxmox-theme-dark) .x-grid-item-selected .x-grid-cell,
-body:not(.proxmox-theme-dark) .x-grid3-row-selected {
-  background: rgba(255,56,209,.16) !important;
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-/* progress */
-body:not(.proxmox-theme-dark) .x-progress { background: var(--elev); border-color: var(--border); border-radius: var(--r); }
-body:not(.proxmox-theme-dark) .x-progress-bar {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  box-shadow: var(--glo-strong);
-}
-
-/* tags */
-body:not(.proxmox-theme-dark) .proxmox-tag-light,
-body:not(.proxmox-theme-dark) .proxmox-tag-dark {
-  border-radius: 999px;
-  border: 1px solid var(--accent);
-  box-shadow: var(--glo);
-  filter: saturate(115%);
-}
-
-/* scrollbars */
-body:not(.proxmox-theme-dark) ::-webkit-scrollbar { width: 10px; height: 10px; }
-body:not(.proxmox-theme-dark) ::-webkit-scrollbar-thumb { background: var(--accent-2); border-radius: 10px; }
-body:not(.proxmox-theme-dark) ::-webkit-scrollbar-track { background: var(--bg2); }
-
-/* ========================================================================== */
-/* DARK – “Night City”                                                        */
-/* ========================================================================== */
-body.proxmox-theme-dark {
-  --bg: #0a0c14;
-  --bg2: #0f1424;
-  --elev: #121a33;
-  --fg: #d7ddff;
-  --muted: #96a0c2;
-  --border: #1e2a4a;
-  --accent: #ff38d1;
-  --accent-soft: rgba(255,56,209,.45);
-  --accent-2: #12e6ff;
-  --accent-3: #f5ff4a;
-  --good: #46ff9a;
-  --warn: #ffd166;
-  --bad:  #ff3864;
-
-  background: radial-gradient(1200px 800px at 80% -10%, rgba(255,56,209,.10), transparent 60%),
-              radial-gradient(900px 600px at -10% 110%, rgba(18,230,255,.10), transparent 60%),
-              var(--bg);
-  color: var(--fg);
-}
-
-/* base chrome */
-body.proxmox-theme-dark .x-panel,
-body.proxmox-theme-dark .x-window,
-body.proxmox-theme-dark .x-message-box {
-  background: linear-gradient(180deg, rgba(18,26,51,.92), rgba(10,12,20,.92)) !important;
-  border-color: var(--border) !important;
-  border-radius: var(--r);
-  box-shadow: 0 6px 20px rgba(0,0,0,.45);
-  backdrop-filter: blur(2px);
-}
-
-/* toolbar header */
-body.proxmox-theme-dark .x-toolbar {
-  background: linear-gradient(180deg, #1a2350, #0f1424) !important;
-  border-bottom: 1px solid var(--border) !important;
-}
-
-/* panel headers */
-body.proxmox-theme-dark .x-panel-header {
-  background: linear-gradient(180deg, #161f3b, #0f1424);
-  border-bottom: 2px solid var(--accent-2);
-  color: var(--fg) !important;
-  text-shadow: 0 0 10px rgba(18,230,255,.25);
-}
-
-/* treelist */
-body.proxmox-theme-dark .x-treelist { background: transparent; }
-body.proxmox-theme-dark .x-treelist-row { border-radius: 8px; }
-body.proxmox-theme-dark .x-treelist-row:hover { background: rgba(18,230,255,.10); }
-body.proxmox-theme-dark .x-treelist-item-selected .x-treelist-row {
-  background: rgba(255,56,209,.12);
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-/* buttons */
-body.proxmox-theme-dark .x-btn {
-  background: linear-gradient(180deg, #192347, #0f1424);
-  border-color: var(--border);
-  color: var(--fg);
-  border-radius: var(--r);
-  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
-}
-body.proxmox-theme-dark .x-btn-over {
-  filter: brightness(1.08) saturate(1.25);
-  box-shadow: 0 0 0 1px var(--accent) inset, var(--glo);
-}
-body.proxmox-theme-dark .x-btn.x-btn-pressed {
-  transform: translateY(1px) scale(.995);
-  box-shadow: 0 0 0 1px var(--accent-2) inset, 0 0 8px var(--accent-2);
-}
-body.proxmox-theme-dark .x-btn.x-btn-primary,
-body.proxmox-theme-dark .proxmox-action-primary {
-  border-color: var(--accent);
-  color: #ffd7f3;
-  text-shadow: 0 0 6px rgba(255,56,209,.35);
-  box-shadow: 0 0 0 1px var(--accent) inset, var(--glo-strong);
-}
-body.proxmox-theme-dark .x-btn.x-btn-danger,
-body.proxmox-theme-dark .proxmox-action-danger {
-  border-color: var(--bad);
-  box-shadow: 0 0 0 1px var(--bad) inset, 0 0 12px rgba(255,56,100,.35);
-}
-
-/* forms */
-body.proxmox-theme-dark .x-form-text,
-body.proxmox-theme-dark .x-form-field,
-body.proxmox-theme-dark .x-form-trigger-wrap {
-  background: #0c0f1e !important;
-  color: var(--fg) !important;
-  border-color: var(--border) !important;
-  border-radius: calc(var(--r) - 2px);
-  box-shadow: 0 0 0 1px var(--border) inset;
-}
-body.proxmox-theme-dark .x-form-field:focus,
-body.proxmox-theme-dark .x-form-trigger-wrap:focus-within {
-  outline: none;
-  box-shadow: 0 0 0 1px var(--accent-2) inset, var(--ring);
-}
-
-/* grids */
-body.proxmox-theme-dark .x-grid, 
-body.proxmox-theme-dark .x-grid3,
-body.proxmox-theme-dark .x-grid-header-ct {
-  background: var(--bg2);
-  border-color: var(--border);
-}
-body.proxmox-theme-dark .x-grid-item-over .x-grid-cell,
-body.proxmox-theme-dark .x-grid3-row-over { background: rgba(18,230,255,.08); }
-body.proxmox-theme-dark .x-grid-item-selected .x-grid-cell,
-body.proxmox-theme-dark .x-grid3-row-selected {
-  background: rgba(255,56,209,.13) !important;
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-/* text contrast fixes */
-body.proxmox-theme-dark .x-panel,
-body.proxmox-theme-dark .x-window,
-body.proxmox-theme-dark .x-message-box,
-body.proxmox-theme-dark .x-toolbar,
-body.proxmox-theme-dark .x-grid,
-body.proxmox-theme-dark .x-grid3 {
+.x-toolbar .x-btn .x-btn-inner {
   color: var(--fg) !important;
 }
-body.proxmox-theme-dark .x-grid-cell-inner,
-body.proxmox-theme-dark .x-grid3-cell-inner { color: var(--fg) !important; opacity:.95; }
-body.proxmox-theme-dark .x-grid-header-ct,
-body.proxmox-theme-dark .x-column-header,
-body.proxmox-theme-dark .x-grid3-hd-row { color: var(--fg) !important; }
-body.proxmox-theme-dark .x-treelist-item-text,
-body.proxmox-theme-dark .x-tree-node-text { color: var(--fg) !important; }
-body.proxmox-theme-dark .left-aligned { color: var(--fg) !important; opacity:.95; }
-body.proxmox-theme-dark .right-aligned { color: var(--muted) !important; opacity:.95; }
-body.proxmox-theme-dark .x-toolbar .x-btn .x-btn-inner,
-body.proxmox-theme-dark .x-toolbar .x-btn .x-btn-icon-el { color: var(--fg) !important; filter: brightness(1.15); }
-body.proxmox-theme-dark .x-toolbar .x-btn.x-btn-over { box-shadow: 0 0 0 1px var(--accent-2) inset, var(--glo); }
-body.proxmox-theme-dark .x-toolbar .x-btn.x-btn-disabled { opacity:.55; }
-body.proxmox-theme-dark .x-tab-inner { color: var(--fg) !important; }
-body.proxmox-theme-dark .x-tab-active .x-tab-inner { text-shadow:0 0 8px rgba(18,230,255,.35); }
-body.proxmox-theme-dark .x-toolbar .x-form-text,
-body.proxmox-theme-dark .x-toolbar .x-form-field { color: var(--fg) !important; }
-body.proxmox-theme-dark .x-grid-cell-inner-treecolumn,
-body.proxmox-theme-dark .x-grid-row .x-grid-cell-inner { color: var(--fg) !important; }
-body.proxmox-theme-dark .proxmox-tag-light,
-body.proxmox-theme-dark .proxmox-tag-dark { color: var(--fg) !important; }
-
-/* progress */
-body.proxmox-theme-dark .x-progress { background: #0d1226; border-color: var(--border); border-radius: var(--r); }
-body.proxmox-theme-dark .x-progress-bar {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-  box-shadow: var(--glo-strong);
-}
-
-/* tags */
-body.proxmox-theme-dark .proxmox-tag-light,
-body.proxmox-theme-dark .proxmox-tag-dark {
-  border-radius: 999px;
-  border: 1px solid var(--accent);
-  box-shadow: var(--glo);
-  color: var(--fg);
-}
-
-/* messages */
-body.proxmox-theme-dark .x-msg-box,
-body.proxmox-theme-dark .x-tip-default {
-  background: #0f1424;
-  border-color: var(--border);
-  box-shadow: 0 10px 30px rgba(0,0,0,.5), var(--glo);
-}
-
-/* links */
-body.proxmox-theme-dark a, body.proxmox-theme-dark .x-link-text { color: var(--accent-2); }
-body.proxmox-theme-dark a:hover { text-shadow: 0 0 8px var(--accent-2); }
-
-/* focus */
-body.proxmox-theme-dark *:focus-visible {
-  outline: none !important;
+.x-toolbar .x-btn.x-btn-over {
+  background: linear-gradient(180deg, rgba(18,230,255,.15), rgba(18,230,255,.05)) !important;
   border-color: var(--accent-2) !important;
-  box-shadow: var(--ring) !important;
+  box-shadow: var(--glo);
+}
+.x-toolbar .x-btn.x-btn-pressed,
+.x-toolbar .x-btn.x-btn-menu-active,
+.x-toolbar .x-btn.x-btn-focus {
+  background: linear-gradient(180deg, rgba(255,56,209,.22), rgba(255,56,209,.12)) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent) inset, var(--glo-strong) !important;
+}
+.x-toolbar .x-btn.x-btn-pressed .x-btn-inner {
+  color: #ffd7f3 !important;
+  text-shadow: 0 0 8px rgba(255,56,209,.35);
 }
 
-/* scrollbars */
-body.proxmox-theme-dark ::-webkit-scrollbar { width: 10px; height: 10px; }
-body.proxmox-theme-dark ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-radius: 10px; }
-body.proxmox-theme-dark ::-webkit-scrollbar-track { background: #0e1328; }
+/* ----- Sidebar tree ----- */
+.x-treelist,
+.x-treelist-nav {
+  background: var(--panel) !important;
+}
+.x-treelist-item-text,
+.x-tree-node-text,
+.x-grid-cell-inner-treecolumn {
+  color: var(--fg) !important;
+}
+.x-treelist-item-over > .x-treelist-row {
+  background: rgba(255,56,209,.1) !important;
+}
+.x-treelist-item-selected > .x-treelist-row {
+  background: rgba(18,230,255,.12) !important;
+  border-left: 2px solid var(--accent-2);
+}
 
-/* misc */
-.x-mask { backdrop-filter: blur(2px); background: rgba(10,12,20,.35); }
-.x-boundlist { border-radius: var(--r); overflow: hidden; }
-.x-splitter { background: var(--bg2); }
+/* ----- Panels & cards ----- */
+.x-panel-header {
+  background: linear-gradient(90deg, #13141c, #161821) !important;
+  border-color: var(--border) !important;
+}
+.x-panel-header .x-title-text {
+  color: var(--fg) !important;
+}
+.x-panel-body {
+  background: var(--bg-alt) !important;
+  border-color: var(--border) !important;
+  color: var(--fg) !important;
+}
+
+/* ----- Tabs ----- */
+.x-tab-bar {
+  background: var(--bg-alt) !important;
+  border-color: var(--border) !important;
+}
+.x-tab {
+  background: transparent !important;
+  border-color: var(--border) !important;
+}
+.x-tab-inner {
+  color: var(--fg) !important;
+}
+.x-tab-over .x-tab-inner {
+  color: var(--accent-2) !important;
+}
+.x-tab-active {
+  background: linear-gradient(180deg, rgba(255,56,209,.22), rgba(255,56,209,.12)) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 -2px 0 0 var(--accent) inset, var(--glo) !important;
+}
+.x-tab-active .x-tab-inner {
+  color: #ffd7f3 !important;
+  text-shadow: 0 0 8px rgba(255,56,209,.35);
+}
+
+/* ----- Grids / Task log ----- */
+.x-grid,
+.x-grid-body,
+.x-grid3 {
+  background: var(--panel) !important;
+  border-color: var(--border) !important;
+}
+.x-grid-cell-inner,
+.x-grid3-cell-inner {
+  color: var(--fg) !important;
+}
+.x-grid-header-ct,
+.x-column-header,
+.x-grid3-hd-row {
+  background: var(--bg-alt) !important;
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
+}
+.x-grid-row-over .x-grid-cell,
+.x-grid3-row-over .x-grid3-cell {
+  background: rgba(18,230,255,.1) !important;
+}
+.x-grid-row-selected .x-grid-cell,
+.x-grid3-row-selected .x-grid3-cell {
+  background: rgba(255,56,209,.15) !important;
+  border-color: var(--accent);
+}
+
+/* ----- Forms / Inputs ----- */
+.x-form-field,
+.x-form-text {
+  background: #0f111a !important;
+  border: 1px solid var(--border) !important;
+  color: var(--fg) !important;
+}
+.x-form-trigger {
+  background: #1a1c27 !important;
+  border-left: 1px solid var(--border);
+}
+.x-form-field:focus {
+  border-color: var(--accent-2) !important;
+  box-shadow: 0 0 6px rgba(18,230,255,.4);
+}
+
+/* ----- Buttons ----- */
+.x-btn {
+  background: linear-gradient(180deg, #1a1c27, #13141c) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--fg) !important;
+}
+.x-btn.x-btn-over {
+  background: linear-gradient(180deg, rgba(18,230,255,.25), rgba(18,230,255,.15)) !important;
+  border-color: var(--accent-2) !important;
+  box-shadow: var(--glo);
+}
+.x-btn.x-btn-pressed {
+  background: linear-gradient(180deg, rgba(255,56,209,.20), rgba(255,56,209,.10)) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent) inset, var(--glo) !important;
+}
+
+/* ----- Tag chips ----- */
+.proxmox-tag-light,
+.proxmox-tag-dark {
+  background: rgba(255,56,209,.1) !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--fg) !important;
+  text-shadow: 0 0 4px rgba(255,56,209,.3);
+}
+
+/* ----- Info widgets (summary panel) ----- */
+.left-aligned,
+.right-aligned {
+  color: var(--fg) !important;
+  opacity: .95;
+}
+.x-component .fa {
+  color: var(--accent-2) !important;
+}
+.x-component .x-title-text {
+  color: var(--fg) !important;
+}
+
+/* ----- Scrollbars ----- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-2);
+  border-radius: 5px;
+  box-shadow: var(--glo);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
