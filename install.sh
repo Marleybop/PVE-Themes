@@ -47,13 +47,29 @@ check_proxmox() {
 }
 
 create_backup() {
-    echo "📦 Creating backup of original files..."
+    echo "📦 Creating backup of original Proxmox files..."
+    echo "🗂️  Backup directory: $BACKUP_DIR"
+    echo ""
+    
     mkdir -p "$BACKUP_DIR"
+    echo "✅ Created backup directory: $BACKUP_DIR"
     
     if [[ -f "$PVE_INDEX_TEMPLATE" ]]; then
         cp "$PVE_INDEX_TEMPLATE" "$BACKUP_DIR/index.html.tpl.original"
-        echo "✅ Backed up index.html.tpl to $BACKUP_DIR"
+        local backup_size=$(du -h "$BACKUP_DIR/index.html.tpl.original" | cut -f1)
+        echo "✅ Backed up index.html.tpl ($backup_size) → $BACKUP_DIR/index.html.tpl.original"
+    else
+        echo "⚠️  Warning: $PVE_INDEX_TEMPLATE not found - skipping backup"
     fi
+    
+    # Show backup contents
+    echo ""
+    echo "📋 Backup contents:"
+    ls -la "$BACKUP_DIR/" | sed 's/^/   /'
+    echo ""
+    echo "🛡️  BACKUP COMPLETE! Your original files are safely stored."
+    echo "🔄 To restore later: cp $BACKUP_DIR/index.html.tpl.original $PVE_INDEX_TEMPLATE"
+    echo ""
 }
 
 install_theme_manager() {
@@ -229,13 +245,28 @@ install_full_system() {
 }
 
 backup_only() {
-    echo "📦 Creating backup only..."
+    echo ""
+    echo "🛡️  BACKUP-ONLY MODE SELECTED"
+    echo "==============================="
+    echo "This will create a backup of your original Proxmox files WITHOUT"
+    echo "making any changes to your system. You can install themes later."
+    echo ""
+    
     create_backup
+    
+    echo "🎉 BACKUP-ONLY OPERATION COMPLETE!"
     echo ""
-    echo "✅ Backup completed!"
-    echo "📁 Backup location: $BACKUP_DIR"
+    echo "📁 Your backup is stored at:"
+    echo "   $BACKUP_DIR"
     echo ""
-    echo "💡 To install themes later, run this installer again and choose option 1."
+    echo "🔍 Backup contains:"
+    echo "   • index.html.tpl.original (your original Proxmox template)"
+    echo ""
+    echo "💡 Next steps:"
+    echo "   • Your Proxmox system is unchanged"
+    echo "   • To install themes later: run this installer again and choose option 1"
+    echo "   • To restore backup: cp $BACKUP_DIR/index.html.tpl.original $PVE_INDEX_TEMPLATE"
+    echo ""
 }
 
 main() {
