@@ -1,0 +1,123 @@
+diff --git a//dev/null b/themes/oceanic-teal.css
+index 0000000000000000000000000000000000000000..bcf655bdac6664fabb145f2daf15b27ae86615fd 100644
+--- a//dev/null
++++ b/themes/oceanic-teal.css
+@@ -0,0 +1,118 @@
++/*
++ * Oceanic Teal Theme for Proxmox VE
++ * Dark, ocean-inspired palette with teal accents
++ * Author: PVE Theme Manager
++ */
++
++/* Theme Variables - Deep ocean blues with teal highlights */
++:root {
++    --pve-primary: #0d9488;
++    --pve-primary-hover: #0f766e;
++    --pve-primary-light: #14b8a6;
++    --pve-bg-main: #0f172a;
++    --pve-bg-panel: #1e293b;
++    --pve-bg-header: #1e293b;
++    --pve-bg-alt: #334155;
++    --pve-text-primary: #e2e8f0;
++    --pve-text-secondary: #94a3b8;
++    --pve-text-muted: #64748b;
++    --pve-border: #334155;
++    --pve-border-strong: #475569;
++    --pve-success: #10b981;
++    --pve-warning: #f59e0b;
++    --pve-error: #ef4444;
++}
++
++/* Base styling */
++body {
++    background-color: var(--pve-bg-main) !important;
++    color: var(--pve-text-primary) !important;
++    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
++}
++
++/* Main containers */
++.x-panel,
++.x-window,
++.x-grid-panel {
++    background-color: var(--pve-bg-panel) !important;
++    border: 1px solid var(--pve-border) !important;
++    color: var(--pve-text-primary) !important;
++    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important;
++}
++
++/* Headers */
++.x-panel-header,
++.x-window-header {
++    background-color: var(--pve-bg-header) !important;
++    color: var(--pve-text-primary) !important;
++    border-bottom: 1px solid var(--pve-primary) !important;
++    font-weight: 600 !important;
++    font-size: 14px !important;
++    padding: 8px 12px !important;
++}
++
++/* Grid rows */
++.x-grid3-row {
++    background-color: var(--pve-bg-panel) !important;
++    border-bottom: 1px solid var(--pve-border) !important;
++    color: var(--pve-text-primary) !important;
++    font-size: 13px !important;
++    padding: 6px !important;
++}
++
++.x-grid3-row-alt {
++    background-color: var(--pve-bg-alt) !important;
++}
++
++.x-grid3-row-over {
++    background-color: var(--pve-primary) !important;
++    color: white !important;
++}
++
++.x-grid3-row-selected {
++    background-color: var(--pve-primary-hover) !important;
++    color: white !important;
++}
++
++/* Buttons */
++.x-btn {
++    background-color: var(--pve-bg-panel) !important;
++    border: 1px solid var(--pve-border-strong) !important;
++    color: var(--pve-text-primary) !important;
++    font-weight: 500 !important;
++    padding: 6px 12px !important;
++    border-radius: 4px !important;
++    font-size: 13px !important;
++}
++
++.x-btn:hover {
++    background-color: var(--pve-primary) !important;
++    border-color: var(--pve-primary-hover) !important;
++    color: white !important;
++}
++
++.x-btn:active,
++.x-btn-pressed {
++    background-color: var(--pve-primary-hover) !important;
++    color: white !important;
++    transform: translateY(1px) !important;
++}
++
++/* Forms */
++.x-form-field,
++.x-form-text {
++    background-color: var(--pve-bg-main) !important;
++    border: 1px solid var(--pve-border) !important;
++    color: var(--pve-text-primary) !important;
++    font-size: 13px !important;
++    padding: 6px 10px !important;
++    border-radius: 4px !important;
++}
++
++.x-form-field:focus,
++.x-form-text:focus {
++    border-color: var(--pve-primary) !important;
++    background-color: var(--pve-bg-panel) !important;
++    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.4) !important;
++}
++
