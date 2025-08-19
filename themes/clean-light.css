@@ -1,247 +1,175 @@
-/*
- * Clean Light Theme for Proxmox VE
- * High contrast light theme with excellent readability
- * Author: PVE Theme Manager
- */
+/* ==========================================================================
+   Proxmox VE – CYBERPUNK Theme
+   Inspired by SolarPVE’s approach (light rules under body:not(.proxmox-theme-dark),
+   dark rules under body.proxmox-theme-dark).
+   Place as: /usr/share/pve-manager/images/cyberpunk.css
+   ========================================================================== */
 
-/* Theme Variables - Optimized for readability */
+/* -------------------------------
+   0) Global Resets & Utilities
+----------------------------------*/
 :root {
-    --pve-primary: #2563eb;
-    --pve-primary-hover: #1d4ed8;
-    --pve-primary-light: #3b82f6;
-    --pve-bg-main: #ffffff;
-    --pve-bg-panel: #f8fafc;
-    --pve-bg-header: #e2e8f0;
-    --pve-bg-alt: #f1f5f9;
-    --pve-text-primary: #1e293b;
-    --pve-text-secondary: #475569;
-    --pve-text-muted: #64748b;
-    --pve-border: #cbd5e1;
-    --pve-border-strong: #94a3b8;
-    --pve-success: #059669;
-    --pve-warning: #d97706;
-    --pve-error: #dc2626;
+  --radius: 10px;
+  --shadow-sm: 0 0 0 1px var(--border) inset;
+  --glow: 0 0 8px var(--accent-soft), 0 0 18px var(--accent-soft);
+  --glow-strong: 0 0 10px var(--accent), 0 0 26px var(--accent);
+  --focus-ring: 0 0 0 2px var(--accent), 0 0 14px var(--accent-soft);
 }
 
-/* Base styling with high contrast */
-body {
-    background-color: var(--pve-bg-main) !important;
-    color: var(--pve-text-primary) !important;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+/* Smooth out fonts a touch */
+html, body, .x-body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Main containers - Clear boundaries */
-.x-panel,
-.x-window,
-.x-grid-panel {
-    background-color: var(--pve-bg-main) !important;
-    border: 2px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+/* ========================================================================== */
+/* 1) LIGHT MODE — “Neon Day” (applies when Proxmox dark stylesheet is NOT present)
+   body:not(.proxmox-theme-dark) … mirrors SolarPVE’s pattern
+/* ========================================================================== */
+body:not(.proxmox-theme-dark) {
+  /* Base palette (light) */
+  --bg: #f7fbff;               /* paper */
+  --surface: #eef4ff;          /* cards/toolbars */
+  --elev: #e5ecff;             /* elevated blocks */
+  --muted: #64748b;            /* subdued text */
+  --fg: #0b1223;               /* main text */
+  --border: #c7d2fe;           /* thin borders */
+
+  /* Cyberpunk accents (neon) */
+  --accent: #ff38d1;           /* magenta core */
+  --accent-soft: rgba(255, 56, 209, .55);
+  --accent-2: #12e6ff;         /* cyan secondary */
+  --accent-3: #f5ff4a;         /* neon yellow */
+  --good: #46ff9a;             /* lime green */
+  --warn: #ffd166;
+  --bad:  #ff3864;
+
+  background: var(--bg);
+  color: var(--fg);
 }
 
-/* Headers - Professional and clear */
-.x-panel-header,
-.x-window-header {
-    background-color: var(--pve-bg-header) !important;
-    color: var(--pve-text-primary) !important;
-    border-bottom: 2px solid var(--pve-primary) !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    padding: 10px 15px !important;
+/* Page & panel surfaces */
+body:not(.proxmox-theme-dark) .x-body,
+body:not(.proxmox-theme-dark) .x-panel-body,
+body:not(.proxmox-theme-dark) .x-container {
+  background: var(--bg);
+  color: var(--fg);
 }
 
-/* Grid rows - Excellent contrast */
-.x-grid3-row {
-    background-color: var(--pve-bg-main) !important;
-    border-bottom: 1px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    font-size: 13px !important;
-    padding: 6px !important;
+body:not(.proxmox-theme-dark) .x-panel,
+body:not(.proxmox-theme-dark) .x-panel-body-default,
+body:not(.proxmox-theme-dark) .x-panel-default-framed,
+body:not(.proxmox-theme-dark) .x-toolbar,
+body:not(.proxmox-theme-dark) .x-tab-bar,
+body:not(.proxmox-theme-dark) .x-window,
+body:not(.proxmox-theme-dark) .x-message-box {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow-sm);
 }
 
-.x-grid3-row-alt {
-    background-color: var(--pve-bg-alt) !important;
+/* Headings, labels */
+body:not(.proxmox-theme-dark) .x-title-text,
+body:not(.proxmox-theme-dark) .x-panel-header-text,
+body:not(.proxmox-theme-dark) .x-form-item-label,
+body:not(.proxmox-theme-dark) .x-grid-header-ct,
+body:not(.proxmox-theme-dark) .x-column-header {
+  color: var(--fg) !important;
 }
 
-.x-grid3-row-over {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
-    font-weight: 500 !important;
+/* Buttons */
+body:not(.proxmox-theme-dark) .x-btn,
+body:not(.proxmox-theme-dark) .x-btn-default-small,
+body:not(.proxmox-theme-dark) .x-btn-default-medium,
+body:not(.proxmox-theme-dark) .x-btn-default-large {
+  background: linear-gradient(180deg, var(--surface), var(--elev));
+  border-color: var(--border);
+  color: var(--fg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
 }
 
-.x-grid3-row-selected {
-    background-color: var(--pve-primary-hover) !important;
-    color: white !important;
-    font-weight: 500 !important;
+body:not(.proxmox-theme-dark) .x-btn-over {
+  filter: saturate(120%);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--accent) inset, var(--glow);
 }
 
-/* Buttons - High visibility and clear states */
-.x-btn {
-    background-color: var(--pve-bg-panel) !important;
-    border: 2px solid var(--pve-border-strong) !important;
-    color: var(--pve-text-primary) !important;
-    font-weight: 500 !important;
-    padding: 8px 14px !important;
-    border-radius: 4px !important;
-    font-size: 13px !important;
+body:not(.proxmox-theme-dark) .x-btn-pressed,
+body:not(.proxmox-theme-dark) .x-btn.x-btn-pressed {
+  transform: translateY(1px) scale(0.995);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--accent-2) inset, 0 0 7px var(--accent-2);
 }
 
-.x-btn:hover {
-    background-color: var(--pve-primary) !important;
-    border-color: var(--pve-primary-hover) !important;
-    color: white !important;
-    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2) !important;
+/* Primary/“neon” badge style for action buttons */
+body:not(.proxmox-theme-dark) .x-btn.x-btn-primary,
+body:not(.proxmox-theme-dark) .x-btn.proxmox-action-primary {
+  background: linear-gradient(180deg, #fff, var(--surface));
+  border-color: var(--accent);
+  color: #3b0b2c;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.6) inset, var(--glow);
 }
 
-.x-btn:active,
-.x-btn-pressed {
-    background-color: var(--pve-primary-hover) !important;
-    color: white !important;
-    transform: translateY(1px) !important;
+/* Forms & fields */
+body:not(.proxmox-theme-dark) .x-form-text,
+body:not(.proxmox-theme-dark) .x-form-field,
+body:not(.proxmox-theme-dark) .x-form-trigger-wrap {
+  background: #ffffff !important;
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Forms - Crystal clear input fields */
-.x-form-field,
-.x-form-text {
-    background-color: white !important;
-    border: 2px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    font-size: 13px !important;
-    padding: 8px 12px !important;
-    border-radius: 4px !important;
+body:not(.proxmox-theme-dark) .x-form-field:focus,
+body:not(.proxmox-theme-dark) .x-form-text:focus,
+body:not(.proxmox-theme-dark) .x-form-trigger-wrap:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--accent) inset, var(--focus-ring);
 }
 
-.x-form-field:focus,
-.x-form-text:focus {
-    border-color: var(--pve-primary) !important;
-    background-color: var(--pve-bg-panel) !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+/* Grids & tables */
+body:not(.proxmox-theme-dark) .x-grid,
+body:not(.proxmox-theme-dark) .x-grid-item-container,
+body:not(.proxmox-theme-dark) .x-grid3 {
+  background: var(--surface);
+  border-color: var(--border);
 }
 
-/* Toolbar - Clean separation */
-.x-toolbar {
-    background-color: var(--pve-bg-panel) !important;
-    border-bottom: 1px solid var(--pve-border) !important;
-    padding: 10px !important;
+body:not(.proxmox-theme-dark) .x-grid-item,
+body:not(.proxmox-theme-dark) .x-grid-row,
+body:not(.proxmox-theme-dark) .x-grid3-row {
+  background: var(--surface);
+  color: var(--fg);
 }
 
-/* Menu - Professional dropdown */
-.x-menu {
-    background-color: white !important;
-    border: 2px solid var(--pve-border-strong) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
-    border-radius: 4px !important;
+body:not(.proxmox-theme-dark) .x-grid-item-over .x-grid-cell,
+body:not(.proxmox-theme-dark) .x-grid3-row-over {
+  background: rgba(18, 230, 255, .12);
 }
 
-.x-menu-item {
-    color: var(--pve-text-primary) !important;
-    padding: 10px 15px !important;
-    font-size: 13px !important;
+body:not(.proxmox-theme-dark) .x-grid-item-selected .x-grid-cell,
+body:not(.proxmox-theme-dark) .x-grid3-row-selected {
+  background: rgba(255, 56, 209, .16) !important;
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 
-.x-menu-item:hover {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
+/* Tabs */
+body:not(.proxmox-theme-dark) .x-tab {
+  background: var(--surface);
+  color: var(--fg);
+  border-color: var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
-/* Tree panel - Clear hierarchy */
-.x-tree-node {
-    color: var(--pve-text-secondary) !important;
-    font-size: 13px !important;
-    padding: 4px 8px !important;
+body:not(.proxmox-theme-dark) .x-tab-active {
+  background: #fff !important;
+  box-shadow: 0 -2px 0 0 var(--accent) inset, var(--glow);
 }
 
-.x-tree-node-over {
-    background-color: var(--pve-bg-alt) !important;
-    color: var(--pve-primary) !important;
-}
-
-.x-tree-selected {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
-    font-weight: 500 !important;
-}
-
-/* Status colors - High contrast and clear */
-.pve-status-online,
-.x-grid3-cell-inner .pve-status-online {
-    color: var(--pve-success) !important;
-    font-weight: 700 !important;
-    font-size: 12px !important;
-}
-
-.pve-status-offline,
-.x-grid3-cell-inner .pve-status-offline {
-    color: var(--pve-error) !important;
-    font-weight: 700 !important;
-    font-size: 12px !important;
-}
-
-.pve-status-warning,
-.x-grid3-cell-inner .pve-status-warning {
-    color: var(--pve-warning) !important;
-    font-weight: 700 !important;
-    font-size: 12px !important;
-}
-
-/* Scrollbars - Clean and functional */
-::-webkit-scrollbar {
-    width: 14px;
-    height: 14px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--pve-bg-panel);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--pve-border-strong);
-    border-radius: 7px;
-    border: 2px solid var(--pve-bg-panel);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--pve-text-muted);
-}
-
-/* Smooth transitions */
-.x-btn,
-.x-menu-item,
-.x-tree-node,
-.x-form-field,
-.x-form-text {
-    transition: all 0.2s ease !important;
-}
-
-/* Focus indicators for accessibility */
-.x-btn:focus,
-.x-form-field:focus,
-.x-form-text:focus {
-    outline: 2px solid var(--pve-primary) !important;
-    outline-offset: 2px !important;
-}
-
-/* Enhanced readability for text elements */
-.x-grid3-cell-inner {
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-}
-
-.x-panel-body,
-.x-window-body {
-    line-height: 1.5 !important;
-}
-
-/* Clear button states for better UX */
-.x-btn-disabled {
-    opacity: 0.5 !important;
-    cursor: not-allowed !important;
-}
-
-.x-btn-disabled:hover {
-    background-color: var(--pve-bg-panel) !important;
-    color: var(--pve-text-primary) !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
+/* Progress & status */
+body:not(.proxmox-theme-dark) .x-progress {
+  background: var(--elev);
+  border-color: var(--border);
+  border
