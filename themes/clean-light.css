@@ -1,33 +1,30 @@
 /* ===========================================================
-   CYBERPUNK PROXMOX THEME (full sheet)
-   - Neon magenta + cyan, dark UI
-   - No overrides to .proxmox-tag-* colors
+   CYBERPUNK PROXMOX THEME (no tag overrides)
    =========================================================== */
 
 :root{
   --r:10px;
   --bg:#0a0c14;
-  --bg2:#0f1424;      /* panels / cards */
+  --bg2:#0f1424;
   --panel:#121a33;
   --border:#1e2a4a;
   --fg:#d7ddff;
   --muted:#96a0c2;
 
-  --accent:#ff38d1;    /* magenta */
+  --accent:#ff38d1;
   --accent-soft:rgba(255,56,209,.45);
-  --accent-2:#12e6ff;  /* cyan */
-  --accent-3:#f5ff4a;  /* neon yellow */
+  --accent-2:#12e6ff;
+  --accent-3:#f5ff4a;
 
   --ring:0 0 0 2px var(--accent),0 0 16px var(--accent-soft);
   --glo:0 0 8px var(--accent-soft),0 0 20px var(--accent-soft);
   --glo-strong:0 0 10px var(--accent),0 0 28px var(--accent);
 }
 
-/* smooth fonts */
 html,body,.x-body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
 /* -----------------------------------------------------------
-   DARK (primary look) — Proxmox normally runs dark now
+   BASE DARK
 ----------------------------------------------------------- */
 body{
   background:
@@ -45,7 +42,7 @@ body{
   color:var(--fg) !important;
 }
 
-/* --- Top header toolbar (logo/search/Documentation/etc.) --- */
+/* --- Toolbar (top bar) --- */
 .x-toolbar{
   background:linear-gradient(180deg,#1a2350,#0f1424) !important;
   border-bottom:1px solid var(--border) !important;
@@ -57,7 +54,6 @@ body{
   filter:brightness(1.08) saturate(1.25);
   box-shadow:0 0 0 1px var(--accent-2) inset, var(--glo);
 }
-/* Pressed/focused/menu-active = MAGENTA (fixes Documentation going grey/black) */
 .x-toolbar .x-btn.x-btn-pressed,
 .x-toolbar .x-btn.x-btn-menu-active,
 .x-toolbar .x-btn.x-btn-focus,
@@ -74,7 +70,7 @@ body{
   text-shadow:0 0 8px rgba(255,56,209,.35);
 }
 
-/* --- Sidebar treelist / tree grid --- */
+/* --- Sidebar tree --- */
 .x-treelist{background:transparent !important}
 .x-treelist-row{border-radius:8px}
 .x-treelist-item-text,.x-tree-node-text,.x-grid-cell-inner-treecolumn{color:var(--fg) !important}
@@ -84,7 +80,7 @@ body{
   box-shadow:inset 0 0 0 1px var(--accent);
 }
 
-/* --- Panel headers / cards --- */
+/* --- Panel headers --- */
 .x-panel-header{
   background:linear-gradient(180deg,#161f3b,#0f1424) !important;
   border-bottom:2px solid var(--accent-2);
@@ -93,7 +89,7 @@ body{
 }
 .x-panel-body{background:var(--bg2) !important;border-color:var(--border) !important;color:var(--fg) !important}
 
-/* --- Buttons (general, not just toolbar) --- */
+/* --- Buttons --- */
 .x-btn{
   background:linear-gradient(180deg,#192347,#0f1424);
   border-color:var(--border);
@@ -121,12 +117,11 @@ body{
   box-shadow:0 0 0 1px #ff3864 inset, 0 0 12px rgba(255,56,100,.35);
 }
 
-/* --- Tabs (Tasks / Cluster log + any ExtJS tabs) --- */
+/* --- Tabs --- */
 .x-tab-bar{background:var(--bg2) !important;border-color:var(--border) !important}
 .x-tab{background:transparent !important;border-color:var(--border) !important;border-radius:var(--r) var(--r) 0 0}
 .x-tab-inner{color:var(--fg) !important}
 .x-tab-over .x-tab-inner{color:var(--accent-2) !important}
-/* Active tab clearly visible in purple */
 .x-tab-active{
   background:linear-gradient(180deg, rgba(255,56,209,.22), rgba(255,56,209,.12)) !important;
   border-color:var(--accent) !important;
@@ -134,7 +129,7 @@ body{
 }
 .x-tab-active .x-tab-inner{color:#ffd7f3 !important;text-shadow:0 0 8px rgba(255,56,209,.35)}
 
-/* --- Forms / inputs (search field, comboboxes) --- */
+/* --- Forms --- */
 .x-form-text,.x-form-field,.x-form-trigger-wrap{
   background:#0c0f1e !important;
   color:var(--fg) !important;
@@ -147,7 +142,7 @@ body{
   box-shadow:0 0 0 1px var(--accent-2) inset, var(--ring);
 }
 
-/* --- Grids / tables (task logs etc.) --- */
+/* --- Grids --- */
 .x-grid,.x-grid3,.x-grid-header-ct{background:var(--bg2);border-color:var(--border)}
 .x-grid-cell-inner,.x-grid3-cell-inner{color:var(--fg) !important;opacity:.95}
 .x-grid-header-ct,.x-column-header,.x-grid3-hd-row{color:var(--fg) !important}
@@ -157,66 +152,19 @@ body{
   box-shadow:inset 0 0 0 1px var(--accent);
 }
 
-/* --- Summary widget rows (left/right aligned values) --- */
+/* --- Misc --- */
 .left-aligned{color:var(--fg) !important;opacity:.95}
 .right-aligned{color:var(--muted) !important;opacity:.95}
 .x-component .fa,[class^="fl-"],[class*=" fl-"]{color:var(--accent-2) !important;opacity:.95}
-
-/* --- Progress bars --- */
 .x-progress{background:#0d1226;border-color:var(--border);border-radius:var(--r)}
 .x-progress-bar{background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:var(--glo-strong)}
-
-/* --- Message boxes & tips --- */
 .x-msg-box,.x-tip-default{background:#0f1424;border-color:var(--border);box-shadow:0 10px 30px rgba(0,0,0,.5), var(--glo)}
-.x-message-box .x-window-header,.x-message-box .x-window-text{color:var(--fg)}
-
-/* --- Links & focus --- */
 a,.x-link-text{color:var(--accent-2)}
 a:hover{text-shadow:0 0 8px var(--accent-2)}
 *:focus-visible{outline:none !important;border-color:var(--accent-2) !important;box-shadow:var(--ring) !important}
-
-/* --- Scrollbars (WebKit) --- */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:10px}
 ::-webkit-scrollbar-track{background:#0e1328}
-
-/* --- Misc polish --- */
 .x-mask{backdrop-filter:blur(2px);background:rgba(10,12,20,.35)}
 .x-boundlist{border-radius:var(--r);overflow:hidden}
 .x-splitter{background:var(--bg2)}
-
-/* -----------------------------------------------------------
-   LIGHT MODE fallback (if you ever toggle to light)
------------------------------------------------------------ */
-body:not(.proxmox-theme-dark){
-  --bg:#f7fbff;--bg2:#eef4ff;--panel:#e5ecff;--fg:#0b1223;--muted:#64748b;--border:#c7d2fe;
-  --accent:#ff38d1;--accent-soft:rgba(255,56,209,.55);--accent-2:#12e6ff;--accent-3:#f5ff4a;
-  background:var(--bg);color:var(--fg)
-}
-body:not(.proxmox-theme-dark) .x-body,
-body:not(.proxmox-theme-dark) .x-container,
-body:not(.proxmox-theme-dark) .x-panel,
-body:not(.proxmox-theme-dark) .x-window,
-body:not(.proxmox-theme-dark) .x-message-box{
-  background:var(--bg2) !important;border-color:var(--border) !important;border-radius:var(--r);box-shadow:0 0 0 1px var(--border) inset;color:var(--fg) !important
-}
-body:not(.proxmox-theme-dark) .x-toolbar{background:linear-gradient(180deg,#ffffff,var(--bg2)) !important;border-color:var(--border) !important}
-body:not(.proxmox-theme-dark) .x-btn{background:linear-gradient(180deg,var(--bg2),var(--panel));border-color:var(--border);color:var(--fg);border-radius:var(--r)}
-body:not(.proxmox-theme-dark) .x-btn-over{filter:saturate(120%);box-shadow:0 0 0 1px var(--accent) inset,var(--glo)}
-body:not(.proxmox-theme-dark) .x-btn.x-btn-pressed,
-body:not(.proxmox-theme-dark) .x-btn.x-btn-menu-active{transform:translateY(1px) scale(.995);box-shadow:0 0 0 1px var(--accent-2) inset,0 0 8px var(--accent-2)}
-body:not(.proxmox-theme-dark) .x-panel-header{background:linear-gradient(180deg,var(--bg2),#fff);border-bottom:2px solid var(--accent-2);color:var(--fg) !important}
-body:not(.proxmox-theme-dark) .x-form-text,.x-form-field,.x-form-trigger-wrap{background:#fff !important;color:var(--fg) !important;border-color:var(--border) !important;border-radius:calc(var(--r) - 2px);box-shadow:0 0 0 1px var(--border) inset}
-body:not(.proxmox-theme-dark) .x-form-field:focus,.x-form-trigger-wrap:focus-within{outline:none;box-shadow:0 0 0 1px var(--accent) inset, var(--ring)}
-body:not(.proxmox-theme-dark) .x-grid,.x-grid3,.x-grid-header-ct{background:var(--bg2);border-color:var(--border)}
-body:not(.proxmox-theme-dark) .x-grid-item-over .x-grid-cell,.x-grid3-row-over{background:rgba(18,230,255,.12)}
-body:not(.proxmox-theme-dark) .x-grid-item-selected .x-grid-cell,.x-grid3-row-selected{background:rgba(255,56,209,.16) !important;box-shadow:inset 0 0 0 1px var(--accent)}
-body:not(.proxmox-theme-dark) .x-tab-bar{background:var(--bg2) !important;border-color:var(--border) !important}
-body:not(.proxmox-theme-dark) .x-tab{background:transparent !important;border-color:var(--border) !important}
-body:not(.proxmox-theme-dark) .x-tab-inner{color:var(--fg) !important}
-body:not(.proxmox-theme-dark) .x-tab-over .x-tab-inner{color:var(--accent-2) !important}
-body:not(.proxmox-theme-dark) .x-tab-active{background:linear-gradient(180deg, rgba(255,56,209,.22), rgba(255,56,209,.12)) !important;border-color:var(--accent) !important;box-shadow:0 -2px 0 0 var(--accent) inset, var(--glo) !important}
-body:not(.proxmox-theme-dark) .x-tab-active .x-tab-inner{color:#3b0b2c !important}
-body:not(.proxmox-theme-dark) .x-progress{background:var(--panel);border-color:var(--border);border-radius:var(--r)}
-body:not(.proxmox-theme-dark) .x-progress-bar{background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:var(--glo-strong)}
-/* (Intentionally NO rules here for .proxmox-tag-* to keep native colors) */
