@@ -175,4 +175,76 @@ a:hover{text-shadow:0 0 8px var(--accent-2)}
 .x-boundlist{border-radius:var(--r);overflow:hidden}
 .x-splitter{background:var(--bg2)}
 
+/* ===========================================================
+   Form Elements — Radio / Checkbox
+   =========================================================== */
+
+/* Wrap */
+.x-form-cb-wrap,
+.x-form-cb-wrap input,
+.x-form-cb-label {
+  color: var(--fg) !important;
+  font-weight: 500;
+}
+
+/* Radios */
+.x-form-radio-default {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #0d1510;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.x-form-radio-default:checked {
+  border-color: var(--accent);
+  background: radial-gradient(circle at center,
+              var(--accent) 0%, var(--accent-2) 50%, transparent 70%);
+  box-shadow: 0 0 6px var(--accent-soft), inset 0 0 2px var(--accent);
+}
+
+/* Checkboxes */
+.x-form-checkbox-default {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #0d1510;
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.x-form-checkbox-default:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent-soft), inset 0 0 2px var(--accent);
+  position: relative;
+}
+.x-form-checkbox-default:checked::after {
+  content: "✔";
+  font-size: 12px;
+  color: var(--bg);
+  position: absolute;
+  top: -2px;
+  left: 2px;
+}
+
+/* Label highlight on focus */
+.x-form-cb-wrap input:focus + .x-form-cb-label {
+  color: var(--accent-2) !important;
+  text-shadow: 0 0 4px var(--accent-soft);
+}
+
+
 /* NOTE: no rules for .proxmox-tag-* — native tag colors preserved */
