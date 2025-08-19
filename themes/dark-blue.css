@@ -1,213 +1,178 @@
-/*
- * Professional Dark Theme for Proxmox VE
- * High contrast dark theme with excellent readability
- * Author: PVE Theme Manager
- */
+/* ===========================================================
+   PROXMOX THEME — "FALLOUT / PIP-BOY"
+   Based on the reusable template: only variables change.
+   Palette: CRT black, terminal green, Vault-Tec amber accents.
+   =========================================================== */
 
-/* Theme Variables - Optimized for readability */
-:root {
-    --pve-primary: #3b82f6;
-    --pve-primary-hover: #2563eb;
-    --pve-primary-light: #60a5fa;
-    --pve-bg-main: #1f2937;
-    --pve-bg-panel: #374151;
-    --pve-bg-header: #4b5563;
-    --pve-bg-input: #111827;
-    --pve-text-primary: #f9fafb;
-    --pve-text-secondary: #e5e7eb;
-    --pve-text-muted: #d1d5db;
-    --pve-border: #6b7280;
-    --pve-border-light: #9ca3af;
-    --pve-success: #10b981;
-    --pve-warning: #f59e0b;
-    --pve-error: #ef4444;
+:root{
+  /* Core Backgrounds */
+  --bg:    #0a0f0a;   /* deep terminal black/green */
+  --bg2:   #0e1510;   /* panels */
+  --panel: #101a12;   /* cards/windows */
+  --border:#1e2a1e;   /* subtle olive border */
+
+  /* Text */
+  --fg:    #e3f6e8;   /* light minty text */
+  --muted: #8fa68f;   /* dim terminal text */
+
+  /* Accents */
+  --accent:   #00ff66;   /* Pip-Boy green */
+  --accent-2: #9affc9;   /* soft green */
+  --accent-3: #ffe082;   /* Vault-Tec amber */
+
+  /* Effects */
+  --accent-soft: rgba(0,255,102,.30); /* green glow */
+  --r: 10px;
+
+  /* Pre-mixed translucent accents (for older browsers; change with palette) */
+  --accent-ghost-22: rgba(0,255,102,.22);
+  --accent-ghost-12: rgba(0,255,102,.12);
+  --accent-ghost-10: rgba(0,255,102,.10);
+
+  /* Glow / Ring */
+  --ring: 0 0 0 2px var(--accent), 0 0 16px var(--accent-soft);
+  --glo:  0 0 8px var(--accent-soft), 0 0 20px var(--accent-soft);
+  --glo-strong: 0 0 10px var(--accent), 0 0 28px var(--accent);
 }
 
-/* Base styling with high contrast */
-body {
-    background-color: var(--pve-bg-main) !important;
-    color: var(--pve-text-primary) !important;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+/* ===========================================================
+   THEME FRAMEWORK (variable-driven)
+   =========================================================== */
+
+html,body,.x-body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* Base */
+body{
+  background:
+    radial-gradient(1200px 800px at 80% -10%, var(--accent-soft), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(154,255,201,.08), transparent 60%),
+    var(--bg) !important;
+  color:var(--fg) !important;
+}
+.x-body,.x-container,.x-panel,.x-window,.x-message-box{
+  background:linear-gradient(180deg, var(--panel), var(--bg)) !important;
+  border-color:var(--border) !important;
+  border-radius:var(--r);
+  box-shadow:0 6px 20px rgba(0,0,0,.45);
+  color:var(--fg) !important;
 }
 
-/* Main containers - High contrast */
-.x-panel,
-.x-window,
-.x-grid-panel {
-    background-color: var(--pve-bg-panel) !important;
-    border: 2px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
+/* Toolbar */
+.x-toolbar{
+  background:linear-gradient(180deg, var(--panel), var(--bg2)) !important;
+  border-bottom:1px solid var(--border) !important;
+  color:var(--fg) !important;
+}
+.x-toolbar .x-btn .x-btn-inner,
+.x-toolbar .x-btn .x-btn-icon-el{color:var(--fg) !important;filter:brightness(1.1)}
+.x-toolbar .x-btn.x-btn-over{
+  filter:brightness(1.08) saturate(1.25);
+  box-shadow:0 0 0 1px var(--accent-2) inset, var(--glo);
+}
+.x-toolbar .x-btn.x-btn-pressed,
+.x-toolbar .x-btn.x-btn-menu-active,
+.x-toolbar .x-btn.x-btn-focus,
+.x-toolbar .x-btn.x-btn-toggle-pressed{
+  background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;
+  border-color:var(--accent) !important;
+  box-shadow:0 0 0 1px var(--accent) inset, var(--glo-strong) !important;
 }
 
-/* Headers - Very clear and readable */
-.x-panel-header,
-.x-window-header {
-    background-color: var(--pve-bg-header) !important;
-    color: var(--pve-text-primary) !important;
-    border-bottom: 2px solid var(--pve-primary) !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    padding: 10px 15px !important;
+/* Sidebar Tree */
+.x-treelist{background:transparent !important}
+.x-treelist-item-text,.x-tree-node-text,.x-grid-cell-inner-treecolumn{color:var(--fg) !important}
+.x-treelist-row:hover{background:var(--accent-ghost-10) !important}
+.x-treelist-item-selected .x-treelist-row{
+  background:var(--accent-ghost-12) !important;
+  box-shadow:inset 0 0 0 1px var(--accent);
 }
 
-/* Grid rows - Clear contrast */
-.x-grid3-row {
-    background-color: var(--pve-bg-panel) !important;
-    border-bottom: 1px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    font-size: 13px !important;
+/* Panels */
+.x-panel-header{
+  background:linear-gradient(180deg,var(--panel),var(--bg2)) !important;
+  border-bottom:2px solid var(--accent-2);
+  color:var(--fg) !important;
+  text-shadow:0 0 10px rgba(154,255,201,.25);
+}
+.x-panel-body{background:var(--bg2) !important;border-color:var(--border) !important;color:var(--fg) !important}
+
+/* Buttons */
+.x-btn{
+  background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border-color:var(--border);
+  color:var(--fg);
+  border-radius:var(--r);
+  transition:transform .06s ease, box-shadow .15s ease, filter .15s ease;
+}
+.x-btn.x-btn-over{
+  filter:brightness(1.08) saturate(1.20);
+  box-shadow:0 0 0 1px var(--accent) inset, var(--glo);
+}
+.x-btn.x-btn-pressed,.x-btn.x-btn-menu-active,.x-btn.x-btn-toggle-pressed{
+  background:linear-gradient(180deg, var(--accent-ghost-20, rgba(0,255,102,.20)), var(--accent-ghost-10)) !important;
+  border-color:var(--accent) !important;
+  box-shadow:0 0 0 1px var(--accent) inset, var(--glo) !important;
 }
 
-.x-grid3-row-alt {
-    background-color: var(--pve-bg-main) !important;
+/* Tabs */
+.x-tab-bar{background:var(--bg2) !important;border-color:var(--border) !important}
+.x-tab{background:transparent !important;border-color:var(--border) !important;border-radius:var(--r) var(--r) 0 0}
+.x-tab-inner{color:var(--fg) !important}
+.x-tab-over .x-tab-inner{color:var(--accent-2) !important}
+.x-tab-active{
+  background:linear-gradient(180deg, var(--accent-ghost-22), var(--accent-ghost-12)) !important;
+  border-color:var(--accent) !important;
+  box-shadow:0 -2px 0 0 var(--accent) inset, var(--glo) !important;
+}
+.x-tab-active .x-tab-inner{color:#eafff2 !important;text-shadow:0 0 8px var(--accent-soft)}
+
+/* Forms */
+.x-form-text,.x-form-field,.x-form-trigger-wrap{
+  background:#0d1510 !important;
+  color:var(--fg) !important;
+  border-color:var(--border) !important;
+  border-radius:calc(var(--r) - 2px);
+}
+.x-form-field:focus,.x-form-text:focus,.x-form-trigger-wrap:focus-within{
+  box-shadow:0 0 0 1px var(--accent-2) inset, var(--ring);
 }
 
-.x-grid3-row-over {
-    background-color: var(--pve-primary-light) !important;
-    color: var(--pve-bg-main) !important;
-    font-weight: 500 !important;
+/* Grids */
+.x-grid,.x-grid3,.x-grid-header-ct{background:var(--bg2);border-color:var(--border)}
+.x-grid-cell-inner,.x-grid3-cell-inner{color:var(--fg) !important;opacity:.95}
+.x-grid-header-ct,.x-column-header,.x-grid3-hd-row{color:var(--fg) !important}
+.x-grid-item-over .x-grid-cell,.x-grid3-row-over{background:var(--accent-ghost-10)}
+.x-grid-item-selected .x-grid-cell,.x-grid3-row-selected{
+  background:var(--accent-ghost-12) !important;
+  box-shadow:inset 0 0 0 1px var(--accent);
 }
 
-.x-grid3-row-selected {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
-    font-weight: 500 !important;
-}
+/* Summary widget rows */
+.left-aligned{color:var(--fg) !important;opacity:.95}
+.right-aligned{color:var(--muted) !important;opacity:.95}
+.x-component .fa,[class^="fl-"],[class*=" fl-"]{color:var(--accent-2) !important;opacity:.95}
 
-/* Buttons - High visibility */
-.x-btn {
-    background-color: var(--pve-bg-header) !important;
-    border: 2px solid var(--pve-border-light) !important;
-    color: var(--pve-text-primary) !important;
-    font-weight: 500 !important;
-    padding: 6px 12px !important;
-    border-radius: 4px !important;
-}
+/* Progress bars */
+.x-progress{background:#0b130e;border-color:var(--border);border-radius:var(--r)}
+.x-progress-bar{background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:var(--glo-strong)}
 
-.x-btn:hover {
-    background-color: var(--pve-primary) !important;
-    border-color: var(--pve-primary-hover) !important;
-    color: white !important;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3) !important;
-}
+/* Messages & tips */
+.x-msg-box,.x-tip-default{background:#0e1712;border-color:var(--border);box-shadow:0 10px 30px rgba(0,0,0,.5), var(--glo)}
+.x-message-box .x-window-header,.x-message-box .x-window-text{color:var(--fg)}
 
-.x-btn:active,
-.x-btn-pressed {
-    background-color: var(--pve-primary-hover) !important;
-    color: white !important;
-}
+/* Links & focus */
+a,.x-link-text{color:var(--accent-2)}
+a:hover{text-shadow:0 0 8px var(--accent-2)}
+*:focus-visible{outline:none !important;border-color:var(--accent-2) !important;box-shadow:var(--ring) !important}
 
-/* Forms - Clear input fields */
-.x-form-field,
-.x-form-text {
-    background-color: var(--pve-bg-input) !important;
-    border: 2px solid var(--pve-border) !important;
-    color: var(--pve-text-primary) !important;
-    font-size: 13px !important;
-    padding: 6px 10px !important;
-    border-radius: 4px !important;
-}
+/* Scrollbars */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:10px}
+::-webkit-scrollbar-track{background:#0b120d}
 
-.x-form-field:focus,
-.x-form-text:focus {
-    border-color: var(--pve-primary-light) !important;
-    background-color: var(--pve-bg-panel) !important;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
-}
+/* Misc */
+.x-mask{backdrop-filter:blur(2px);background:rgba(8,14,10,.35)}
+.x-boundlist{border-radius:var(--r);overflow:hidden}
+.x-splitter{background:var(--bg2)}
 
-/* Toolbar - Clear and functional */
-.x-toolbar {
-    background-color: var(--pve-bg-header) !important;
-    border-bottom: 1px solid var(--pve-border) !important;
-    padding: 8px !important;
-}
-
-/* Menu - High readability */
-.x-menu {
-    background-color: var(--pve-bg-panel) !important;
-    border: 2px solid var(--pve-border) !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
-}
-
-.x-menu-item {
-    color: var(--pve-text-primary) !important;
-    padding: 8px 12px !important;
-    font-size: 13px !important;
-}
-
-.x-menu-item:hover {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
-}
-
-/* Tree panel - Clear hierarchy */
-.x-tree-node {
-    color: var(--pve-text-secondary) !important;
-    font-size: 13px !important;
-}
-
-.x-tree-node-over {
-    background-color: var(--pve-primary-light) !important;
-    color: var(--pve-bg-main) !important;
-}
-
-.x-tree-selected {
-    background-color: var(--pve-primary) !important;
-    color: white !important;
-    font-weight: 500 !important;
-}
-
-/* Status colors - High contrast */
-.pve-status-online,
-.x-grid3-cell-inner .pve-status-online {
-    color: #22c55e !important;
-    font-weight: 600 !important;
-}
-
-.pve-status-offline,
-.x-grid3-cell-inner .pve-status-offline {
-    color: #ef4444 !important;
-    font-weight: 600 !important;
-}
-
-.pve-status-warning,
-.x-grid3-cell-inner .pve-status-warning {
-    color: #f59e0b !important;
-    font-weight: 600 !important;
-}
-
-/* Scrollbars - Subtle but visible */
-::-webkit-scrollbar {
-    width: 14px;
-    height: 14px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--pve-bg-main);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--pve-border);
-    border-radius: 7px;
-    border: 2px solid var(--pve-bg-main);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--pve-border-light);
-}
-
-/* Smooth but not distracting transitions */
-.x-btn,
-.x-menu-item,
-.x-tree-node {
-    transition: all 0.2s ease !important;
-}
-
-/* Focus indicators for accessibility */
-.x-btn:focus,
-.x-form-field:focus,
-.x-form-text:focus {
-    outline: 2px solid var(--pve-primary-light) !important;
-    outline-offset: 2px !important;
-}
+/* NOTE: no rules for .proxmox-tag-* — native tag colors preserved */
